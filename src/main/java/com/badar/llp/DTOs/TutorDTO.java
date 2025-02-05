@@ -1,6 +1,5 @@
 package com.badar.llp.DTOs;
 
-import com.badar.llp.Models.Student;
 import com.badar.llp.Models.Tutor;
 import com.badar.llp.Utils.HelperUtils;
 
