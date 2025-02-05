@@ -9,6 +9,7 @@ import java.util.List;
 public class LanguageDTO {
     private Integer id;
     private String name;
+    private List<VideoDTO> videoDTOList;
 
     public Integer getId() {
         return id;
@@ -26,21 +27,30 @@ public class LanguageDTO {
         this.name = name;
     }
 
-    public LanguageDTO convertToDTO(Language language) {
+    public List<VideoDTO> getVideoDTOList() {
+        return videoDTOList;
+    }
+
+    public void setVideoDTOList(List<VideoDTO> videoDTOList) {
+        this.videoDTOList = videoDTOList;
+    }
+
+    public static LanguageDTO convertToDTO(Language language) {
         LanguageDTO dto = new LanguageDTO();
         dto.setId(language.getId());
         dto.setName(language.getName());
+        dto.setVideoDTOList(VideoDTO.convertToDTO(language.getVideoList()));
         return dto;
     }
 
-    public Language convertFromDTO(LanguageDTO dto) {
+    public static Language convertFromDTO(LanguageDTO dto) {
         Language language = new Language();
         language.setId(dto.getId());
         language.setName(dto.getName());
         return language;
     }
 
-    public List<LanguageDTO> convertToDTO(List<Language> languageList) {
+    public static List<LanguageDTO> convertToDTO(List<Language> languageList) {
         List<LanguageDTO> languageDTOList = new ArrayList<>();
         if (HelperUtils.isNotNull(languageList)) {
             for (Language lang : languageList) {
@@ -51,7 +61,7 @@ public class LanguageDTO {
         return new ArrayList<>();
     }
 
-    public List<Language> convertFromDTO(List<LanguageDTO> languageDTOList) {
+    public static List<Language> convertFromDTO(List<LanguageDTO> languageDTOList) {
         List<Language> languageList = new ArrayList<>();
         if (HelperUtils.isNotNull(languageDTOList)) {
             for (LanguageDTO langDTO : languageDTOList) {

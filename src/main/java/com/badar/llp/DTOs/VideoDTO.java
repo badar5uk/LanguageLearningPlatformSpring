@@ -36,21 +36,21 @@ public class VideoDTO {
         this.link = link;
     }
 
-    public VideoDTO convertToDTO(Video video) {
+    public static VideoDTO convertToDTO(Video video) {
         VideoDTO dto = new VideoDTO();
         dto.setId(video.getId());
         dto.setName(video.getName());
         return dto;
     }
 
-    public Video convertFromDTO(VideoDTO dto) {
+    public static Video convertFromDTO(VideoDTO dto) {
         Video video = new Video();
         video.setId(dto.getId());
         video.setName(dto.getName());
         return video;
     }
 
-    public List<VideoDTO> convertToDTO(List<Video> videoList) {
+    public static List<VideoDTO> convertToDTO(List<Video> videoList) {
         List<VideoDTO> videoDTOList = new ArrayList<>();
         if (HelperUtils.isNotNull(videoList)) {
             for (Video video : videoList) {
@@ -61,7 +61,7 @@ public class VideoDTO {
         return new ArrayList<>();
     }
 
-    public List<Video> convertFromDTO(List<VideoDTO> videoDTOList) {
+    public static List<Video> convertFromDTO(List<VideoDTO> videoDTOList) {
         List<Video> videoList = new ArrayList<>();
         if (HelperUtils.isNotNull(videoDTOList)) {
             for (VideoDTO videoDTO : videoDTOList) {

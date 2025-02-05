@@ -26,21 +26,21 @@ public class TutorDTO {
         this.name = name;
     }
 
-    public TutorDTO convertToDTO(Tutor tutor) {
+    public static TutorDTO convertToDTO(Tutor tutor) {
         TutorDTO dto = new TutorDTO();
         dto.setId(tutor.getId());
         dto.setName(tutor.getName());
         return dto;
     }
 
-    public Tutor convertFromDTO(TutorDTO dto) {
+    public static Tutor convertFromDTO(TutorDTO dto) {
         Tutor tutor = new Tutor();
         tutor.setId(dto.getId());
         tutor.setName(dto.getName());
         return tutor;
     }
 
-    public List<TutorDTO> convertToDTO(List<Tutor> tutorList) {
+    public static List<TutorDTO> convertToDTO(List<Tutor> tutorList) {
         List<TutorDTO> studentDTOList = new ArrayList<>();
         if (HelperUtils.isNotNull(tutorList)) {
             for (Tutor tutor : tutorList) {
@@ -51,7 +51,7 @@ public class TutorDTO {
         return new ArrayList<>();
     }
 
-    public List<Tutor> convertFromDTO(List<TutorDTO> tutorDTOList) {
+    public static List<Tutor> convertFromDTO(List<TutorDTO> tutorDTOList) {
         List<Tutor> tutorList = new ArrayList<>();
         if (HelperUtils.isNotNull(tutorDTOList)) {
             for (TutorDTO tutorDTO : tutorDTOList) {
