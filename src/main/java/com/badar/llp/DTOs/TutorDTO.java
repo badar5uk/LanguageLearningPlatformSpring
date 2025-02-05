@@ -9,6 +9,8 @@ import java.util.List;
 public class TutorDTO {
     private Integer id;
     private String name;
+    private List<LanguageDTO> languageList;
+    private List<StudentDTO> studentList;
 
     public Integer getId() {
         return id;
@@ -26,10 +28,28 @@ public class TutorDTO {
         this.name = name;
     }
 
+    public List<LanguageDTO> getLanguageList() {
+        return languageList;
+    }
+
+    public void setLanguageList(List<LanguageDTO> languageList) {
+        this.languageList = languageList;
+    }
+
+    public List<StudentDTO> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(List<StudentDTO> studentList) {
+        this.studentList = studentList;
+    }
+
     public static TutorDTO convertToDTO(Tutor tutor) {
         TutorDTO dto = new TutorDTO();
         dto.setId(tutor.getId());
         dto.setName(tutor.getName());
+        dto.setLanguageList(LanguageDTO.convertToDTO(tutor.getLanguageList()));
+        dto.setStudentList(StudentDTO.convertToDTO(tutor.getStudentList()));
         return dto;
     }
 
@@ -37,6 +57,8 @@ public class TutorDTO {
         Tutor tutor = new Tutor();
         tutor.setId(dto.getId());
         tutor.setName(dto.getName());
+        tutor.setLanguageList(LanguageDTO.convertFromDTO(dto.getLanguageList()));
+        tutor.setStudentList(StudentDTO.convertFromDTO(dto.getStudentList()));
         return tutor;
     }
 

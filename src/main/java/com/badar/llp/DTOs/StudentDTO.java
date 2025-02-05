@@ -1,5 +1,6 @@
 package com.badar.llp.DTOs;
 
+import com.badar.llp.Models.Language;
 import com.badar.llp.Models.Student;
 import com.badar.llp.Utils.HelperUtils;
 
@@ -9,6 +10,7 @@ import java.util.List;
 public class StudentDTO {
     private Integer id;
     private String name;
+    private List<LanguageDTO> languageList;
 
     public Integer getId() {
         return id;
@@ -26,10 +28,19 @@ public class StudentDTO {
         this.name = name;
     }
 
+    public List<LanguageDTO> getLanguageList() {
+        return languageList;
+    }
+
+    public void setLanguageList(List<LanguageDTO> languageList) {
+        this.languageList = languageList;
+    }
+
     public static StudentDTO convertToDTO(Student student) {
         StudentDTO dto = new StudentDTO();
         dto.setId(student.getId());
         dto.setName(student.getName());
+        dto.setLanguageList(LanguageDTO.convertToDTO(student.getLanguageList()));
         return dto;
     }
 
@@ -37,6 +48,7 @@ public class StudentDTO {
         Student student = new Student();
         student.setId(dto.getId());
         student.setName(dto.getName());
+        student.setLanguageList(LanguageDTO.convertFromDTO(dto.getLanguageList()));
         return student;
     }
 

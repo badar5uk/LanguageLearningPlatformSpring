@@ -40,6 +40,7 @@ public class VideoDTO {
         VideoDTO dto = new VideoDTO();
         dto.setId(video.getId());
         dto.setName(video.getName());
+        dto.setLink(video.getLink());
         return dto;
     }
 
@@ -47,6 +48,7 @@ public class VideoDTO {
         Video video = new Video();
         video.setId(dto.getId());
         video.setName(dto.getName());
+        video.setLink(dto.getLink());
         return video;
     }
 

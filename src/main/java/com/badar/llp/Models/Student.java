@@ -9,6 +9,13 @@ import java.util.List;
 public class Student extends BasicModel {
 
     @OneToMany
-    private List<Language> language;
+    private List<Language> languageList;
 
+    public List<Language> getLanguageList() {
+        return languageList;
+    }
+
+    public void setLanguageList(List<Language> languageList) {
+        this.languageList = languageList;
+    }
 }
