@@ -1,6 +1,7 @@
 package com.badar.llp.DTOs;
 
 import com.badar.llp.Models.Language;
+import com.badar.llp.Utils.HelperUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,36 +26,38 @@ public class LanguageDTO {
         this.name = name;
     }
 
-    public LanguageDTO convertToDTO(Language language){
+    public LanguageDTO convertToDTO(Language language) {
         LanguageDTO dto = new LanguageDTO();
         dto.setId(language.getId());
         dto.setName(language.getName());
         return dto;
     }
 
-    public Language convertFromDTO(LanguageDTO dto){
+    public Language convertFromDTO(LanguageDTO dto) {
         Language language = new Language();
         language.setId(dto.getId());
         language.setName(dto.getName());
         return language;
     }
 
-    public List<LanguageDTO> convertToDTO(List<Language> languageList){
+    public List<LanguageDTO> convertToDTO(List<Language> languageList) {
         List<LanguageDTO> languageDTOList = new ArrayList<>();
-        //add helper utils to check if not null
-        for (Language lang: languageList){
-            languageDTOList.add(convertToDTO(lang));
-            return languageDTOList;
+        if (HelperUtils.isNotNull(languageList)) {
+            for (Language lang : languageList) {
+                languageDTOList.add(convertToDTO(lang));
+                return languageDTOList;
+            }
         }
         return new ArrayList<>();
     }
 
-    public List<Language> convertFromDTO(List<LanguageDTO> languageDTOList){
+    public List<Language> convertFromDTO(List<LanguageDTO> languageDTOList) {
         List<Language> languageList = new ArrayList<>();
-        for(LanguageDTO langDTO:languageDTOList){
-            //add helper utils to check if not null
-            languageList.add(convertFromDTO(langDTO));
-            return languageList;
+        if (HelperUtils.isNotNull(languageDTOList)) {
+            for (LanguageDTO langDTO : languageDTOList) {
+                languageList.add(convertFromDTO(langDTO));
+                return languageList;
+            }
         }
         return new ArrayList<>();
     }
