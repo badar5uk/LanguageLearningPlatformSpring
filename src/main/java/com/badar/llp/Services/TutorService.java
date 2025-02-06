@@ -1,8 +1,6 @@
 package com.badar.llp.Services;
 
-import com.badar.llp.DTOs.LanguageDTO;
 import com.badar.llp.DTOs.TutorDTO;
-import com.badar.llp.Models.Language;
 import com.badar.llp.Models.Tutor;
 import com.badar.llp.Repositories.TutorRepository;
 import com.badar.llp.Utils.HelperUtils;
@@ -31,26 +29,36 @@ public class TutorService {
     }
 
     public TutorDTO addTutor(TutorDTO dto){
-        dto.setCreatedDate(new Date());
-        dto.setActive(true);
-        TutorDTO newDTO = TutorDTO.convertToDTO(tutorRepository.save(TutorDTO.convertFromDTO(dto)));
+        Tutor entity = TutorDTO.convertFromDTO(dto);
+        entity.setCreatedDate(new Date());
+        entity.setActive(true);
+        entity = tutorRepository.save(entity);
+        TutorDTO newDTO = TutorDTO.convertToDTO(entity);
         return newDTO;
     }
 
     public TutorDTO updateTutor(Integer id, TutorDTO tutor) {
         if(HelperUtils.isNotNull(id)){
-            tutor.setUpdatedDate(new Date());
-            TutorDTO newDTO = TutorDTO.convertToDTO(tutorRepository.save(TutorDTO.convertFromDTO(tutor)));
+            Tutor entity = TutorDTO.convertFromDTO(tutor);
+            entity.setUpdatedDate(new Date());
+            entity = tutorRepository.save(entity);
+            TutorDTO newDTO = TutorDTO.convertToDTO(entity);
             return newDTO;
         }
         return new TutorDTO();
     }
 
-    public String deleteTutorById(Integer id) {
+    public String deleteTutorById(Integer id,TutorDTO tutor) {
         if(HelperUtils.isNotNull(id)){
-            Optional<Tutor> list = tutorRepository.findById(id);
+            Tutor entity = TutorDTO.convertFromDTO(tutor);
+            entity.setActive(false);
+            entity = tutorRepository.save(entity);
             return "Deleted";
         }
         return "Not found";
     }
+
+//    public TutorDTO assignLanguageToTutor(){
+//
+//    }
 }

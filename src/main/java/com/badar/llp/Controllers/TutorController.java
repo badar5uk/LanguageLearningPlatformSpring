@@ -16,31 +16,36 @@ public class TutorController {
     TutorService tutorService;
 
     @GetMapping(value = "{id}")
-    public TutorDTO getTutor(@PathVariable Integer id){
+    public TutorDTO getTutor(@PathVariable Integer id) {
         TutorDTO tutor = tutorService.getTutor(id);
         return tutor;
     }
 
     @GetMapping
-    public List<TutorDTO> getAllTutors(){
+    public List<TutorDTO> getAllTutors() {
         List<TutorDTO> tutorDTOList = tutorService.getAllTutors();
         return tutorDTOList;
     }
 
     @PostMapping
-    public TutorDTO addTutor(@RequestBody TutorDTO dto){
+    public TutorDTO addTutor(@RequestBody TutorDTO dto) {
         TutorDTO newDTO = tutorService.addTutor(dto);
         return newDTO;
     }
 
     @PutMapping(value = "{id}")
-    public TutorDTO updateTutor(@RequestBody TutorDTO tutorDTO,@RequestParam Integer id){
-        TutorDTO newDTO = tutorService.updateTutor(id,tutorDTO);
+    public TutorDTO updateTutor(@RequestBody TutorDTO tutorDTO, @RequestParam Integer id) {
+        TutorDTO newDTO = tutorService.updateTutor(id, tutorDTO);
         return newDTO;
     }
 
     @DeleteMapping(value = "{id}")
-    public String deleteTutorById(@RequestParam Integer id){
-        return tutorService.deleteTutorById(id);
+    public String deleteTutorById(@RequestParam Integer id, @RequestBody TutorDTO tutorDTO) {
+        return tutorService.deleteTutorById(id, tutorDTO);
     }
+
+//    @PostMapping(value =)
+//    public TutorDTO assignLanguageToTutor() {
+//        tutorService.
+//    }
 }
