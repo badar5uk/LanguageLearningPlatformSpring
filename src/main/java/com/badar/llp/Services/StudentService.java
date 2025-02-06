@@ -29,24 +29,30 @@ public class StudentService {
     }
 
     public StudentDTO addStudent(StudentDTO dto){
-        dto.setCreatedDate(new Date());
-        dto.setActive(true);
-        StudentDTO newDTO = StudentDTO.convertToDTO(studentRepository.save(StudentDTO.convertFromDTO(dto)));
+        Student entity = StudentDTO.convertFromDTO(dto);
+        entity.setCreatedDate(new Date());
+        entity.setActive(true);
+        studentRepository.save(entity);
+        StudentDTO newDTO = StudentDTO.convertToDTO(entity);
         return newDTO;
     }
 
-    public StudentDTO updateStudent(Integer id, StudentDTO student) {
+    public StudentDTO updateStudent(Integer id, StudentDTO dto) {
         if(HelperUtils.isNotNull(id)){
-            student.setUpdatedDate(new Date());
-            StudentDTO newDTO = StudentDTO.convertToDTO(studentRepository.save(StudentDTO.convertFromDTO(student)));
+            Student entity = StudentDTO.convertFromDTO(dto);
+            entity.setUpdatedDate(new Date());
+            studentRepository.save(entity);
+            StudentDTO newDTO = StudentDTO.convertToDTO(entity);
             return newDTO;
         }
         return new StudentDTO();
     }
 
-    public String deleteStudentById(Integer id) {
+    public String deleteStudentById(Integer id, StudentDTO dto) {
         if(HelperUtils.isNotNull(id)){
-            Optional<Student> list = studentRepository.findById(id);
+            Student entity = StudentDTO.convertFromDTO(dto);
+            entity.setActive(false);
+            studentRepository.save(entity);
             return "Deleted";
         }
         return "Not found";

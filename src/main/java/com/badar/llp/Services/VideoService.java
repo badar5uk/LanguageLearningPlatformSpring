@@ -31,25 +31,31 @@ public class VideoService {
     }
 
     public VideoDTO addVideo(VideoDTO dto){
-        dto.setCreatedDate(new Date());
-        dto.setActive(true);
-        VideoDTO newDTO = VideoDTO.convertToDTO(videoRepository.save(VideoDTO.convertFromDTO(dto)));
+        Video entity = VideoDTO.convertFromDTO(dto);
+        entity.setCreatedDate(new Date());
+        entity.setActive(true);
+        videoRepository.save(entity);
+        VideoDTO newDTO = VideoDTO.convertToDTO(entity);
         return newDTO;
     }
 
 
-    public VideoDTO updateVideo(Integer id, VideoDTO video) {
+    public VideoDTO updateVideo(Integer id, VideoDTO dto) {
         if(HelperUtils.isNotNull(id)){
-            video.setUpdatedDate(new Date());
-            VideoDTO newDTO = VideoDTO.convertToDTO(videoRepository.save(VideoDTO.convertFromDTO(video)));
+            Video entity = VideoDTO.convertFromDTO(dto);
+            entity.setUpdatedDate(new Date());
+            videoRepository.save(entity);
+            VideoDTO newDTO = VideoDTO.convertToDTO(entity);
             return newDTO;
         }
         return new VideoDTO();
     }
 
-    public String deleteVideoById(Integer id) {
+    public String deleteVideoById(Integer id, VideoDTO dto) {
         if(HelperUtils.isNotNull(id)){
-            Optional<Video> list = videoRepository.findById(id);
+            Video entity = VideoDTO.convertFromDTO(dto);
+            entity.setActive(false);
+            videoRepository.save(entity);
             return "Deleted";
         }
         return "Not found";
