@@ -41,7 +41,7 @@ public class VideoController {
     }
 
     @DeleteMapping(value = "{id}")
-    public String deleteVideoById(@RequestParam Integer id){
-        return videoService.deleteVideoById(id);
+    public String deleteVideoById(@RequestParam Integer id, @RequestBody VideoDTO videoDTO){
+        return videoService.deleteVideoById(id,videoDTO);
     }
 }
