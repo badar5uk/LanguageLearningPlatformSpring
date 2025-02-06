@@ -5,12 +5,16 @@ import com.badar.llp.Models.Video;
 import com.badar.llp.Utils.HelperUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class VideoDTO {
     private Integer id;
     private String name;
     private String link;
+    private Date createdDate;
+    private Date updatedDate;
+    private Boolean isActive;
 
     public Integer getId() {
         return id;
@@ -42,6 +46,30 @@ public class VideoDTO {
         dto.setName(video.getName());
         dto.setLink(video.getLink());
         return dto;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public static Video convertFromDTO(VideoDTO dto) {
