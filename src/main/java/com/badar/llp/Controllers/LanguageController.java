@@ -40,7 +40,7 @@ public class LanguageController {
     }
 
     @DeleteMapping(value = "{id}")
-    public String deleteLanguageById(@RequestParam Integer id){
-        return languageService.deleteLanguage(id);
+    public String deleteLanguageById(@RequestParam Integer id, @RequestBody LanguageDTO languageDTO){
+        return languageService.deleteLanguageById(id,languageDTO);
     }
 }

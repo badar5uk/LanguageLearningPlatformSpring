@@ -1,7 +1,9 @@
 package com.badar.llp.Services;
 
 import com.badar.llp.DTOs.LanguageDTO;
+import com.badar.llp.DTOs.TutorDTO;
 import com.badar.llp.Models.Language;
+import com.badar.llp.Models.Tutor;
 import com.badar.llp.Repositories.LanguageRepository;
 import com.badar.llp.Utils.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,25 +31,30 @@ public class LanguageService {
     }
 
     public LanguageDTO addLanguage(LanguageDTO dto){
-        dto.setCreatedDate(new Date());
-        dto.setActive(true);
-        LanguageDTO newDTO = LanguageDTO.convertToDTO(languageRepository.save(LanguageDTO.convertFromDTO(dto)));
+        Language entity = LanguageDTO.convertFromDTO(dto);
+        entity.setCreatedDate(new Date());
+        entity.setActive(true);
+        languageRepository.save(entity);
+        LanguageDTO newDTO = LanguageDTO.convertToDTO(entity);
         return newDTO;
     }
 
-    public LanguageDTO updateLanguage(Integer id, LanguageDTO language) {
+    public LanguageDTO updateLanguage(Integer id, LanguageDTO dto) {
         if(HelperUtils.isNotNull(id)){
-            language.setUpdatedDate(new Date());
-           LanguageDTO newDTO = LanguageDTO.convertToDTO(languageRepository.save(LanguageDTO.convertFromDTO(language)));
-           return newDTO;
+            Language entity = LanguageDTO.convertFromDTO(dto);
+            entity.setUpdatedDate(new Date());
+            languageRepository.save(entity);
+            LanguageDTO newDTO = LanguageDTO.convertToDTO(entity);
+            return newDTO;
         }
         return new LanguageDTO();
     }
 
-    public String deleteLanguage(Integer id) {
+    public String deleteLanguageById(Integer id, LanguageDTO dto) {
         if(HelperUtils.isNotNull(id)){
-            //languageRepository.deleteById(id);
-            Optional<Language> list = languageRepository.findById(id);
+            Language entity = LanguageDTO.convertFromDTO(dto);
+            entity.setActive(false);
+            entity = languageRepository.save(entity);
             return "Deleted";
         }
         return "Not found";
