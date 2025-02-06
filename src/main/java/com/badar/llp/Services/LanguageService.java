@@ -25,9 +25,9 @@ public class LanguageService {
     }
 
     public List<LanguageDTO> getAllLanguages() {
-        List<LanguageDTO> languageDTOList = new ArrayList<>();
-        languageDTOList = LanguageDTO.convertToDTO(languageRepository.findAll());
-        return languageDTOList;
+        List<Language> languageList = new ArrayList<>();
+        languageList = languageRepository.findAll();
+        return LanguageDTO.convertToDTO(languageList);
     }
 
     public LanguageDTO addLanguage(LanguageDTO dto){

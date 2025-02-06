@@ -39,7 +39,7 @@ public class StudentController {
     }
 
     @DeleteMapping(value = "{id}")
-    public String deleteStudentById(@RequestParam Integer id){
-        return studentService.deleteStudentById(id);
+    public String deleteStudentById(@RequestParam Integer id, @RequestBody StudentDTO studentDTO){
+        return studentService.deleteStudentById(id, studentDTO);
     }
 }
