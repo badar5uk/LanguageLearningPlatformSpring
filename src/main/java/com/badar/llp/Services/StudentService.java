@@ -23,9 +23,9 @@ public class StudentService {
     }
 
     public List<StudentDTO> getAllStudent() {
-        List<StudentDTO> studentDTOList = new ArrayList<>();
-        studentDTOList = StudentDTO.convertToDTO(studentRepository.findAll());
-        return studentDTOList;
+        List<Student> studentList = new ArrayList<>();
+        studentList = studentRepository.findAll();
+        return StudentDTO.convertToDTO(studentList);
     }
 
     public StudentDTO addStudent(StudentDTO dto){

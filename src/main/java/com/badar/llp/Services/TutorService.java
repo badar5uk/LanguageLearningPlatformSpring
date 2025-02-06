@@ -23,9 +23,9 @@ public class TutorService {
     }
 
     public List<TutorDTO> getAllTutors() {
-        List<TutorDTO> tutorDTOList = new ArrayList<>();
-        tutorDTOList = TutorDTO.convertToDTO(tutorRepository.findAll());
-        return tutorDTOList;
+        List<Tutor> tutorList = new ArrayList<>();
+        tutorList = tutorRepository.findAll();
+        return TutorDTO.convertToDTO(tutorList);
     }
 
     public TutorDTO addTutor(TutorDTO dto){

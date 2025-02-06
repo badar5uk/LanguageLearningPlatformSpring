@@ -25,9 +25,9 @@ public class VideoService {
     }
 
     public List<VideoDTO> getAllVideos() {
-        List<VideoDTO> videoDTOList = new ArrayList<>();
-        videoDTOList = VideoDTO.convertToDTO(videoRepository.findAll());
-        return videoDTOList;
+        List<Video> videoList = new ArrayList<>();
+        videoList = videoRepository.findAll();
+        return VideoDTO.convertToDTO(videoList);
     }
 
     public VideoDTO addVideo(VideoDTO dto){
