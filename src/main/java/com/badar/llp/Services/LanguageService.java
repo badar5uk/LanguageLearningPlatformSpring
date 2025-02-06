@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LanguageService {
@@ -36,6 +37,7 @@ public class LanguageService {
 
     public LanguageDTO updateLanguage(Integer id, LanguageDTO language) {
         if(HelperUtils.isNotNull(id)){
+            language.setUpdatedDate(new Date());
            LanguageDTO newDTO = LanguageDTO.convertToDTO(languageRepository.save(LanguageDTO.convertFromDTO(language)));
            return newDTO;
         }
@@ -44,7 +46,8 @@ public class LanguageService {
 
     public String deleteLanguage(Integer id) {
         if(HelperUtils.isNotNull(id)){
-            languageRepository.deleteById(id);
+            //languageRepository.deleteById(id);
+            Optional<Language> list = languageRepository.findById(id);
             return "Deleted";
         }
         return "Not found";
