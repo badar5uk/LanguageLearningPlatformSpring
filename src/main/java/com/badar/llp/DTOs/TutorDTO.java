@@ -4,11 +4,15 @@ import com.badar.llp.Models.Tutor;
 import com.badar.llp.Utils.HelperUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TutorDTO {
     private Integer id;
     private String name;
+    private Date createdDate;
+    private Date updatedDate;
+    private Boolean isActive;
     private List<LanguageDTO> languageList;
     private List<StudentDTO> studentList;
 
@@ -42,6 +46,30 @@ public class TutorDTO {
 
     public void setStudentList(List<StudentDTO> studentList) {
         this.studentList = studentList;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public static TutorDTO convertToDTO(Tutor tutor) {
