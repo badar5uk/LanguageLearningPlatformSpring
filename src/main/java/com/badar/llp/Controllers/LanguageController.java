@@ -44,4 +44,14 @@ public class LanguageController {
         return languageService.deleteLanguageById(id,languageDTO);
     }
 
+    @PutMapping(value = "assignvideo/{videoid}")
+    public LanguageDTO assignVideoToLanguage(@RequestBody LanguageDTO languageDTO, @PathVariable Integer videoid){
+        return languageService.assignVideoToLanguage(languageDTO, videoid);
+    }
+
+    @PutMapping(value = "removevideo/{videoid}")
+    public LanguageDTO removeVideoFromLanguage(@RequestBody LanguageDTO languageDTO, @PathVariable Integer videoid){
+        return languageService.removeVideoFromLanguage(languageDTO, videoid);
+    }
+
 }

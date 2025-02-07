@@ -1,10 +1,10 @@
 package com.badar.llp.Services;
 
 import com.badar.llp.DTOs.LanguageDTO;
-import com.badar.llp.DTOs.TutorDTO;
 import com.badar.llp.Models.Language;
-import com.badar.llp.Models.Tutor;
+import com.badar.llp.Models.Video;
 import com.badar.llp.Repositories.LanguageRepository;
+import com.badar.llp.Repositories.VideoRepository;
 import com.badar.llp.Utils.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LanguageService {
 
     @Autowired
     LanguageRepository languageRepository;
+    @Autowired
+    VideoRepository videoRepository;
 
     public LanguageDTO getLanguage(Integer id) {
         return LanguageDTO.convertToDTO(languageRepository.getById(id));
@@ -58,5 +59,25 @@ public class LanguageService {
             return "Deleted";
         }
         return "Not found";
+    }
+
+    public LanguageDTO assignVideoToLanguage(LanguageDTO languageDTO, Integer videoid){
+        Video video = videoRepository.findById(videoid).get();
+        Language language = languageRepository.getById(languageDTO.getId());
+        List<Video> exitingVideoList = language.getVideoList();
+        exitingVideoList.add(video);
+        language.setVideoList(exitingVideoList);
+        language = languageRepository.save(language);
+        return LanguageDTO.convertToDTO(language);
+    }
+
+    public LanguageDTO removeVideoFromLanguage(LanguageDTO languageDTO, Integer videoid){
+        Video video = videoRepository.findById(videoid).get();
+        Language language = languageRepository.getById(languageDTO.getId());
+        List<Video> exitingVideoList = language.getVideoList();
+        exitingVideoList.remove(video);
+        language.setVideoList(exitingVideoList);
+        language = languageRepository.save(language);
+        return LanguageDTO.convertToDTO(language);
     }
 }
