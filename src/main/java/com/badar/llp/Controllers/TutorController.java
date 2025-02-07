@@ -22,7 +22,7 @@ public class TutorController {
         return tutor;
     }
 
-    @GetMapping
+    @GetMapping(value = "getAll")
     public List<TutorDTO> getAllTutors() {
         List<TutorDTO> tutorDTOList = tutorService.getAllTutors();
         return tutorDTOList;
@@ -35,19 +35,19 @@ public class TutorController {
     }
 
     @PutMapping(value = "{id}")
-    public TutorDTO updateTutor(@RequestBody TutorDTO tutorDTO, @RequestParam Integer id) {
+    public TutorDTO updateTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer id) {
         TutorDTO newDTO = tutorService.updateTutor(id, tutorDTO);
         return newDTO;
     }
 
     @DeleteMapping(value = "{id}")
-    public String deleteTutorById(@RequestParam Integer id, @RequestBody TutorDTO tutorDTO) {
+    public String deleteTutorById(@PathVariable Integer id, @RequestBody TutorDTO tutorDTO) {
         return tutorService.deleteTutorById(id, tutorDTO);
     }
 
-    @PostMapping(value = "assignlanguage/{langid}")
-   public TutorDTO assignLanguageToTutor(@RequestBody TutorDTO tutorDTO, @ModelAttribute Integer langid) {
-       return tutorService.assignLanguageToTutor(tutorDTO, langid);
+    @PutMapping(value = "assignlanguage/{langid}")
+   public TutorDTO assignLanguageToTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer langid) {
+       return tutorService.assignLanguageToTutor(tutorDTO,langid);
 
     }
 }
