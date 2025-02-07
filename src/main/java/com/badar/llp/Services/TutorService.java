@@ -72,4 +72,14 @@ public class TutorService {
         tutor = tutorRepository.save(tutor);
         return TutorDTO.convertToDTO(tutor);
    }
+
+   public TutorDTO removeLanguageFromTutor(TutorDTO tutorDTO, Integer languageId){
+       Language language = languageRepository.findById(languageId).get();
+       Tutor tutor = tutorRepository.findById(tutorDTO.getId()).get();
+       List<Language> exisitingLanguages = tutor.getLanguageList();
+       exisitingLanguages.remove(language);
+       tutor.setLanguageList(exisitingLanguages);
+       tutor = tutorRepository.save(tutor);
+       return TutorDTO.convertToDTO(tutor);
+   }
 }

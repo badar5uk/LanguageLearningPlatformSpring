@@ -50,4 +50,10 @@ public class TutorController {
        return tutorService.assignLanguageToTutor(tutorDTO,langid);
 
     }
+
+    @PutMapping(value = "removelanguage/{langid}")
+    public TutorDTO removeLanguageFromTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer langid) {
+        return tutorService.removeLanguageFromTutor(tutorDTO,langid);
+
+    }
 }
