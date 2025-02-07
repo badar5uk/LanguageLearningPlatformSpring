@@ -21,7 +21,7 @@ public class LanguageController {
         return lang;
     }
 
-    @GetMapping
+    @GetMapping(value = "getAll")
     public List<LanguageDTO> getAllLanguages(){
         List<LanguageDTO> languageDTOList = languageService.getAllLanguages();
         return languageDTOList;
@@ -34,13 +34,14 @@ public class LanguageController {
     }
 
     @PutMapping(value = "{id}")
-    public LanguageDTO updateLanguage(@RequestBody LanguageDTO languageDTO,@RequestParam Integer id){
+    public LanguageDTO updateLanguage(@RequestBody LanguageDTO languageDTO,@PathVariable Integer id){
         LanguageDTO newDTO = languageService.updateLanguage(id,languageDTO);
         return newDTO;
     }
 
     @DeleteMapping(value = "{id}")
-    public String deleteLanguageById(@RequestParam Integer id, @RequestBody LanguageDTO languageDTO){
+    public String deleteLanguageById(@PathVariable Integer id, @RequestBody LanguageDTO languageDTO){
         return languageService.deleteLanguageById(id,languageDTO);
     }
+
 }
