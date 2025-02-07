@@ -5,6 +5,7 @@ import com.badar.llp.DTOs.TutorDTO;
 import com.badar.llp.Services.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 
@@ -44,8 +45,9 @@ public class TutorController {
         return tutorService.deleteTutorById(id, tutorDTO);
     }
 
-//    @PostMapping(value =)
-//    public TutorDTO assignLanguageToTutor() {
-//        tutorService.
-//    }
+    @PostMapping(value = "assignlanguage/{langid}")
+   public TutorDTO assignLanguageToTutor(@RequestBody TutorDTO tutorDTO, @ModelAttribute Integer langid) {
+       return tutorService.assignLanguageToTutor(tutorDTO, langid);
+
+    }
 }

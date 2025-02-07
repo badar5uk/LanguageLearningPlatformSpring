@@ -1,7 +1,10 @@
 package com.badar.llp.Services;
 
+import com.badar.llp.DTOs.LanguageDTO;
 import com.badar.llp.DTOs.TutorDTO;
+import com.badar.llp.Models.Language;
 import com.badar.llp.Models.Tutor;
+import com.badar.llp.Repositories.LanguageRepository;
 import com.badar.llp.Repositories.TutorRepository;
 import com.badar.llp.Utils.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,8 @@ public class TutorService {
 
     @Autowired
     TutorRepository tutorRepository;
+    @Autowired
+    LanguageRepository languageRepository;
 
     public TutorDTO getTutor(Integer id) {
         return TutorDTO.convertToDTO(tutorRepository.getById(id));
@@ -58,7 +63,13 @@ public class TutorService {
         return "Not found";
     }
 
-//    public TutorDTO assignLanguageToTutor(){
-//
-//    }
+    public TutorDTO assignLanguageToTutor(TutorDTO tutorDTO, Integer languageId){
+        Language language = languageRepository.findById(languageId).get();
+        Tutor tutor = tutorRepository.findById(tutorDTO.getId()).get();
+        List<Language> exisitingLanguages = tutor.getLanguageList();
+        exisitingLanguages.add(language);
+        tutor.setLanguageList(exisitingLanguages);
+        tutor = tutorRepository.save(tutor);
+        return TutorDTO.convertToDTO(tutor);
+   }
 }
