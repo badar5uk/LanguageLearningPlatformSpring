@@ -1,11 +1,9 @@
 package com.badar.llp.Controllers;
 
-import com.badar.llp.DTOs.StudentDTO;
 import com.badar.llp.DTOs.TutorDTO;
 import com.badar.llp.Services.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 
@@ -46,14 +44,25 @@ public class TutorController {
     }
 
     @PutMapping(value = "assignlanguage/{langid}")
-   public TutorDTO assignLanguageToTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer langid) {
-       return tutorService.assignLanguageToTutor(tutorDTO,langid);
+    public TutorDTO assignLanguageToTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer langid) {
+        return tutorService.assignLanguageToTutor(tutorDTO, langid);
 
     }
 
     @PutMapping(value = "removelanguage/{langid}")
     public TutorDTO removeLanguageFromTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer langid) {
-        return tutorService.removeLanguageFromTutor(tutorDTO,langid);
+        return tutorService.removeLanguageFromTutor(tutorDTO, langid);
 
     }
+
+    @PutMapping(value = "assignStudent/{studentid}")
+    public TutorDTO addStudentsToTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer studentid){
+        return tutorService.addStudentsToTutor(tutorDTO, studentid);
+    }
+
+    @PutMapping(value = "removestudent/{studentid}")
+    public TutorDTO removeStudentFromTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer studentid){
+        return tutorService.removeStudentFromTutor(tutorDTO,studentid);
+    }
+
 }

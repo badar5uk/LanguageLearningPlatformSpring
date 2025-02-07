@@ -3,8 +3,10 @@ package com.badar.llp.Services;
 import com.badar.llp.DTOs.LanguageDTO;
 import com.badar.llp.DTOs.TutorDTO;
 import com.badar.llp.Models.Language;
+import com.badar.llp.Models.Student;
 import com.badar.llp.Models.Tutor;
 import com.badar.llp.Repositories.LanguageRepository;
+import com.badar.llp.Repositories.StudentRepository;
 import com.badar.llp.Repositories.TutorRepository;
 import com.badar.llp.Utils.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class TutorService {
     TutorRepository tutorRepository;
     @Autowired
     LanguageRepository languageRepository;
+    @Autowired
+    StudentRepository studentRepository;
 
     public TutorDTO getTutor(Integer id) {
         return TutorDTO.convertToDTO(tutorRepository.getById(id));
@@ -82,4 +86,23 @@ public class TutorService {
        tutor = tutorRepository.save(tutor);
        return TutorDTO.convertToDTO(tutor);
    }
+
+   public TutorDTO addStudentsToTutor(TutorDTO tutorDTO, Integer studentid){
+       Student student = studentRepository.findById(studentid).get();
+       Tutor tutor = tutorRepository.findById(tutorDTO.getId()).get();
+       List<Student> exisitingStudent = tutor.getStudentList();
+       exisitingStudent.add(student);
+       tutor.setStudentList(exisitingStudent);
+       tutor = tutorRepository.save(tutor);
+       return TutorDTO.convertToDTO(tutor);
+   }
+    public TutorDTO removeStudentFromTutor(TutorDTO tutorDTO, Integer studentid){
+        Student student = studentRepository.findById(studentid).get();
+        Tutor tutor = tutorRepository.findById(tutorDTO.getId()).get();
+        List<Student> exisitingStudent = tutor.getStudentList();
+        exisitingStudent.remove(student);
+        tutor.setStudentList(exisitingStudent);
+        tutor = tutorRepository.save(tutor);
+        return TutorDTO.convertToDTO(tutor);
+    }
 }
