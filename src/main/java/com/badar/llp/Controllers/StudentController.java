@@ -31,12 +31,12 @@ public class StudentController {
     }
 
     @PutMapping(value = "{id}")
-    public StudentDTO updateStudent(@RequestBody StudentDTO studentDTO,@RequestParam Integer id){
+    public StudentDTO updateStudent(@RequestBody StudentDTO studentDTO,@PathVariable Integer id){
          return studentService.updateStudent(id,studentDTO);
     }
 
     @DeleteMapping(value = "{id}")
-    public String deleteStudentById(@RequestParam Integer id, @RequestBody StudentDTO studentDTO){
+    public String deleteStudentById(@PathVariable Integer id, @RequestBody StudentDTO studentDTO){
         return studentService.deleteStudentById(id, studentDTO);
     }
 

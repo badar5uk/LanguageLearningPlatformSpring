@@ -22,7 +22,7 @@ public class VideoController {
         return video;
     }
 
-    @GetMapping
+    @GetMapping(value = "getAll")
     public List<VideoDTO> getAllVideos(){
         List<VideoDTO> videoDTOList = videoService.getAllVideos();
         return videoDTOList;
@@ -35,13 +35,13 @@ public class VideoController {
     }
 
     @PutMapping(value = "{id}")
-    public VideoDTO updateVideo(@RequestBody VideoDTO tutorDTO,@RequestParam Integer id){
+    public VideoDTO updateVideo(@RequestBody VideoDTO tutorDTO,@PathVariable Integer id){
         VideoDTO newDTO = videoService.updateVideo(id,tutorDTO);
         return newDTO;
     }
 
     @DeleteMapping(value = "{id}")
-    public String deleteVideoById(@RequestParam Integer id, @RequestBody VideoDTO videoDTO){
+    public String deleteVideoById(@PathVariable Integer id, @RequestBody VideoDTO videoDTO){
         return videoService.deleteVideoById(id,videoDTO);
     }
 }
