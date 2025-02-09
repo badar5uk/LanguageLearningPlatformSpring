@@ -43,26 +43,26 @@ public class TutorController {
         return tutorService.deleteTutorById(id, tutorDTO);
     }
 
-    @PutMapping(value = "assignlanguage/{langid}")
-    public TutorDTO assignLanguageToTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer langid) {
-        return tutorService.assignLanguageToTutor(tutorDTO, langid);
+    @PutMapping(value = "assignlanguage")
+    public TutorDTO assignLanguageToTutor(@RequestParam Integer tutorId, @RequestParam Integer langid) {
+        return tutorService.assignLanguageToTutor(tutorId, langid);
 
     }
 
-    @PutMapping(value = "removelanguage/{langid}")
-    public TutorDTO removeLanguageFromTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer langid) {
-        return tutorService.removeLanguageFromTutor(tutorDTO, langid);
+    @PutMapping(value = "removelanguage")
+    public TutorDTO removeLanguageFromTutor(@RequestParam Integer tutorId, @RequestParam Integer langid) {
+        return tutorService.removeLanguageFromTutor(tutorId, langid);
 
     }
 
-    @PutMapping(value = "assignStudent/{studentid}")
-    public TutorDTO addStudentsToTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer studentid){
-        return tutorService.addStudentsToTutor(tutorDTO, studentid);
+    @PutMapping(value = "assignStudent")
+    public TutorDTO addStudentsToTutor(@RequestParam Integer tutorId, @PathVariable Integer studentid){
+        return tutorService.addStudentsToTutor(tutorId, studentid);
     }
 
-    @PutMapping(value = "removestudent/{studentid}")
-    public TutorDTO removeStudentFromTutor(@RequestBody TutorDTO tutorDTO, @PathVariable Integer studentid){
-        return tutorService.removeStudentFromTutor(tutorDTO,studentid);
+    @PutMapping(value = "removestudent")
+    public TutorDTO removeStudentFromTutor(@RequestParam Integer tutorId, @PathVariable Integer studentid){
+        return tutorService.removeStudentFromTutor(tutorId,studentid);
     }
 
 }

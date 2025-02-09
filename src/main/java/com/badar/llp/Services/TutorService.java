@@ -77,9 +77,9 @@ public class TutorService {
         return TutorDTO.convertToDTO(tutor);
    }
 
-   public TutorDTO removeLanguageFromTutor(TutorDTO tutorDTO, Integer languageId){
+   public TutorDTO removeLanguageFromTutor(Integer tutorId, Integer languageId){
        Language language = languageRepository.findById(languageId).get();
-       Tutor tutor = tutorRepository.findById(tutorDTO.getId()).get();
+       Tutor tutor = tutorRepository.getById(tutorId);
        List<Language> exisitingLanguages = tutor.getLanguageList();
        exisitingLanguages.remove(language);
        tutor.setLanguageList(exisitingLanguages);
@@ -87,18 +87,18 @@ public class TutorService {
        return TutorDTO.convertToDTO(tutor);
    }
 
-   public TutorDTO addStudentsToTutor(TutorDTO tutorDTO, Integer studentid){
+   public TutorDTO addStudentsToTutor(Integer tutorId, Integer studentid){
        Student student = studentRepository.findById(studentid).get();
-       Tutor tutor = tutorRepository.findById(tutorDTO.getId()).get();
+       Tutor tutor = tutorRepository.getById(tutorId);
        List<Student> exisitingStudent = tutor.getStudentList();
        exisitingStudent.add(student);
        tutor.setStudentList(exisitingStudent);
        tutor = tutorRepository.save(tutor);
        return TutorDTO.convertToDTO(tutor);
    }
-    public TutorDTO removeStudentFromTutor(TutorDTO tutorDTO, Integer studentid){
+    public TutorDTO removeStudentFromTutor(Integer tutorId, Integer studentid){
         Student student = studentRepository.findById(studentid).get();
-        Tutor tutor = tutorRepository.findById(tutorDTO.getId()).get();
+        Tutor tutor = tutorRepository.getById(tutorId);
         List<Student> exisitingStudent = tutor.getStudentList();
         exisitingStudent.remove(student);
         tutor.setStudentList(exisitingStudent);
