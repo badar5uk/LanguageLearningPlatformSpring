@@ -63,18 +63,18 @@ public class StudentService {
         }
         return "Not found";
     }
-    public StudentDTO assignLanguageToStudent(StudentDTO studentDTO, Integer langid){
+    public StudentDTO assignLanguageToStudent(Integer studentId, Integer langid){
         Language language = languageRepository.findById(langid).get();
-        Student student = studentRepository.getById(studentDTO.getId());
+        Student student = studentRepository.getById(studentId);
         List<Language> exitingLanguageList = student.getLanguageList();
         exitingLanguageList.add(language);
         student.setLanguageList(exitingLanguageList);
         student = studentRepository.save(student);
         return StudentDTO.convertToDTO(student);
     }
-    public StudentDTO removeLanguageToStudent(StudentDTO studentDTO, Integer langid){
+    public StudentDTO removeLanguageToStudent(Integer studentId, Integer langid){
         Language language = languageRepository.findById(langid).get();
-        Student student = studentRepository.getById(studentDTO.getId());
+        Student student = studentRepository.getById(studentId);
         List<Language> exitingLanguageList = student.getLanguageList();
         exitingLanguageList.remove(language);
         student.setLanguageList(exitingLanguageList);

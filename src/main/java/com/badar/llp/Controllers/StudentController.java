@@ -41,13 +41,13 @@ public class StudentController {
     }
 
     @PutMapping(value = "assignlanguage/{langid}")
-    public StudentDTO assignLanguageToStudent(@RequestBody StudentDTO studentDTO, @PathVariable Integer langid){
-        return studentService.assignLanguageToStudent(studentDTO, langid);
+    public StudentDTO assignLanguageToStudent(@RequestParam Integer studentId, @RequestParam Integer langid){
+        return studentService.assignLanguageToStudent(studentId, langid);
     }
 
-    @PutMapping(value = "removelanguage/{langid}")
-    public StudentDTO removeLanguageToStudent(@RequestBody StudentDTO studentDTO, @PathVariable Integer langid){
-        return studentService.removeLanguageToStudent(studentDTO, langid);
+    @PutMapping(value = "removelanguage")
+    public StudentDTO removeLanguageToStudent(@RequestParam Integer studentId, @RequestParam Integer langid){
+        return studentService.removeLanguageToStudent(studentId, langid);
     }
 
 }
