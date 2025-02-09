@@ -61,9 +61,9 @@ public class LanguageService {
         return "Not found";
     }
 
-    public LanguageDTO assignVideoToLanguage(LanguageDTO languageDTO, Integer videoid){
+    public LanguageDTO assignVideoToLanguage(Integer languageId, Integer videoid){
         Video video = videoRepository.findById(videoid).get();
-        Language language = languageRepository.getById(languageDTO.getId());
+        Language language = languageRepository.getById(languageId);
         List<Video> exitingVideoList = language.getVideoList();
         exitingVideoList.add(video);
         language.setVideoList(exitingVideoList);
@@ -71,9 +71,9 @@ public class LanguageService {
         return LanguageDTO.convertToDTO(language);
     }
 
-    public LanguageDTO removeVideoFromLanguage(LanguageDTO languageDTO, Integer videoid){
+    public LanguageDTO removeVideoFromLanguage(Integer languageId, Integer videoid){
         Video video = videoRepository.findById(videoid).get();
-        Language language = languageRepository.getById(languageDTO.getId());
+        Language language = languageRepository.getById(languageId);
         List<Video> exitingVideoList = language.getVideoList();
         exitingVideoList.remove(video);
         language.setVideoList(exitingVideoList);

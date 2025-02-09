@@ -45,14 +45,14 @@ public class LanguageController {
         return languageService.deleteLanguageById(id,languageDTO);
     }
 
-    @PutMapping(value = "assignvideo/{videoid}")
-    public LanguageDTO assignVideoToLanguage(@RequestBody LanguageDTO languageDTO, @PathVariable Integer videoid){
-        return languageService.assignVideoToLanguage(languageDTO, videoid);
+    @PutMapping(value = "assignVideo")
+    public LanguageDTO assignVideoToLanguage(@RequestParam Integer languageId, @RequestParam Integer videoId){
+        return languageService.assignVideoToLanguage(languageId, videoId);
     }
 
     @PutMapping(value = "removevideo/{videoid}")
-    public LanguageDTO removeVideoFromLanguage(@RequestBody LanguageDTO languageDTO, @PathVariable Integer videoid){
-        return languageService.removeVideoFromLanguage(languageDTO, videoid);
+    public LanguageDTO removeVideoFromLanguage(@RequestParam Integer languageId, @RequestParam Integer videoid){
+        return languageService.removeVideoFromLanguage(languageId, videoid);
     }
 
 }
