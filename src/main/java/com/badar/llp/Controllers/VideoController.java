@@ -25,6 +25,8 @@ public class VideoController {
     @GetMapping(value = "getAll")
     public List<VideoDTO> getAllVideos(){
         List<VideoDTO> videoDTOList = videoService.getAllVideos();
+
+        //comment
         return videoDTOList;
     }
 

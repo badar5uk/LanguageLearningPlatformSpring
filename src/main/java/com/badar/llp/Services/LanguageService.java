@@ -62,7 +62,7 @@ public class LanguageService {
     }
 
     public LanguageDTO assignVideoToLanguage(Integer languageId, Integer videoid){
-        Video video = videoRepository.findById(videoid).get();
+        Video video = videoRepository.getById(videoid);
         Language language = languageRepository.getById(languageId);
         List<Video> exitingVideoList = language.getVideoList();
         exitingVideoList.add(video);
@@ -72,7 +72,7 @@ public class LanguageService {
     }
 
     public LanguageDTO removeVideoFromLanguage(Integer languageId, Integer videoid){
-        Video video = videoRepository.findById(videoid).get();
+        Video video = videoRepository.getById(videoid);
         Language language = languageRepository.getById(languageId);
         List<Video> exitingVideoList = language.getVideoList();
         exitingVideoList.remove(video);
