@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "language")
+@CrossOrigin(origins = "*")
 public class LanguageController {
 
     @Autowired
