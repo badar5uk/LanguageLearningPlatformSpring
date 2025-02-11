@@ -67,8 +67,9 @@ for (let i = 0; i < arabicLinkList.length; i++) {
 //   cell1.appendChild(link);
 //   row.appendChild(cell1);
 
-const button = document.createElement('button');
-button.textContent = arabicLinkList[i]; 
+const button = document.createElement('iframe');
+button.src = arabicLinkList[i]; 
+
 button.onclick = function() {
   window.open(arabicLinkList[i], "_blank");
 };
