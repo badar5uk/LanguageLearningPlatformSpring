@@ -58,8 +58,8 @@ public class VideoDTO {
         if (HelperUtils.isNotNull(videoList)) {
             for (Video video : videoList) {
                 videoDTOList.add(convertToDTO(video));
-                return videoDTOList;
             }
+            return videoDTOList;
         }
         return new ArrayList<>();
     }
@@ -69,8 +69,8 @@ public class VideoDTO {
         if (HelperUtils.isNotNull(videoDTOList)) {
             for (VideoDTO videoDTO : videoDTOList) {
                 videoList.add(convertFromDTO(videoDTO));
-                return videoList;
             }
+            return videoList;
         }
         return new ArrayList<>();
     }
