@@ -56,8 +56,8 @@ public class LanguageDTO {
         if (HelperUtils.isNotNull(languageList)) {
             for (Language lang : languageList) {
                 languageDTOList.add(convertToDTO(lang));
-                return languageDTOList;
             }
+            return languageDTOList;
         }
         return new ArrayList<>();
     }
@@ -67,8 +67,8 @@ public class LanguageDTO {
         if (HelperUtils.isNotNull(languageDTOList)) {
             for (LanguageDTO langDTO : languageDTOList) {
                 languageList.add(convertFromDTO(langDTO));
-                return languageList;
             }
+            return languageList;
         }
         return new ArrayList<>();
     }

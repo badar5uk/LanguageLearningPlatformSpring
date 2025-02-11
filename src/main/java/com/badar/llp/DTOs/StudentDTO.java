@@ -58,8 +58,8 @@ public class StudentDTO {
         if (HelperUtils.isNotNull(studentList)) {
             for (Student student : studentList) {
                 studentDTOList.add(convertToDTO(student));
-                return studentDTOList;
             }
+            return studentDTOList;
         }
         return new ArrayList<>();
     }
@@ -69,8 +69,8 @@ public class StudentDTO {
         if (HelperUtils.isNotNull(studentDTOList)) {
             for (StudentDTO studentDTO : studentDTOList) {
                 studentList.add(convertFromDTO(studentDTO));
-                return studentList;
             }
+            return studentList;
         }
         return new ArrayList<>();
     }
