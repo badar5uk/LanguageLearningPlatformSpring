@@ -43,7 +43,7 @@ public class TutorService {
         return TutorDTO.convertToDTO(tutorList);
     }
 
-    public TutorDTO addTutor(TutorDTO dto){
+    public TutorDTO addTutor(TutorDTO dto) {
         Tutor entity = TutorDTO.convertFromDTO(dto);
         entity.setCreatedDate(new Date());
         entity.setActive(true);
@@ -53,7 +53,7 @@ public class TutorService {
     }
 
     public TutorDTO updateTutor(Integer id, TutorDTO tutor) {
-        if(HelperUtils.isNotNull(id)){
+        if (HelperUtils.isNotNull(id)) {
             Tutor entity = TutorDTO.convertFromDTO(tutor);
             entity.setUpdatedDate(new Date());
             entity = tutorRepository.save(entity);
@@ -63,8 +63,8 @@ public class TutorService {
         return new TutorDTO();
     }
 
-    public String deleteTutorById(Integer id,TutorDTO tutor) {
-        if(HelperUtils.isNotNull(id)){
+    public String deleteTutorById(Integer id, TutorDTO tutor) {
+        if (HelperUtils.isNotNull(id)) {
             Tutor entity = TutorDTO.convertFromDTO(tutor);
             entity.setActive(false);
             entity = tutorRepository.save(entity);
@@ -73,7 +73,7 @@ public class TutorService {
         return "Not found";
     }
 
-    public TutorDTO assignLanguageToTutor(Integer tutorId, Integer languageId){
+    public TutorDTO assignLanguageToTutor(Integer tutorId, Integer languageId) {
         Language language = languageRepository.getById(languageId);
         Tutor tutor = tutorRepository.getById(tutorId);
         List<Language> exisitingLanguages = tutor.getLanguageList();
@@ -81,28 +81,28 @@ public class TutorService {
         tutor.setLanguageList(exisitingLanguages);
         tutor = tutorRepository.save(tutor);
         return TutorDTO.convertToDTO(tutor);
-   }
+    }
 
-   public TutorDTO removeLanguageFromTutor(Integer tutorId, Integer languageId){
-       Language language = languageRepository.getById(languageId);
-       Tutor tutor = tutorRepository.getById(tutorId);
-       List<Language> exisitingLanguages = tutor.getLanguageList();
-       exisitingLanguages.remove(language);
-       tutor.setLanguageList(exisitingLanguages);
-       tutor = tutorRepository.save(tutor);
-       return TutorDTO.convertToDTO(tutor);
-   }
+    public TutorDTO removeLanguageFromTutor(Integer tutorId, Integer languageId) {
+        Language language = languageRepository.getById(languageId);
+        Tutor tutor = tutorRepository.getById(tutorId);
+        List<Language> exisitingLanguages = tutor.getLanguageList();
+        exisitingLanguages.remove(language);
+        tutor.setLanguageList(exisitingLanguages);
+        tutor = tutorRepository.save(tutor);
+        return TutorDTO.convertToDTO(tutor);
+    }
 
-   public TutorDTO addStudentsToTutor(Integer tutorId, Integer studentid){
-       Student student = studentRepository.getById(studentid);
-       Tutor tutor = tutorRepository.getById(tutorId);
-       List<Student> exisitingStudent = tutor.getStudentList();
-       exisitingStudent.add(student);
-       tutor.setStudentList(exisitingStudent);
-       tutor = tutorRepository.save(tutor);
-       return TutorDTO.convertToDTO(tutor);
-   }
-    public TutorDTO removeStudentFromTutor(Integer tutorId, Integer studentid){
+    public TutorDTO addStudentsToTutor(Integer tutorId, Integer studentid) {
+        Student student = studentRepository.getById(studentid);
+        Tutor tutor = tutorRepository.getById(tutorId);
+        List<Student> exisitingStudent = tutor.getStudentList();
+        exisitingStudent.add(student);
+        tutor.setStudentList(exisitingStudent);
+        tutor = tutorRepository.save(tutor);
+        return TutorDTO.convertToDTO(tutor);
+    }
+    public TutorDTO removeStudentFromTutor(Integer tutorId, Integer studentid) {
         Student student = studentRepository.getById(studentid);
         Tutor tutor = tutorRepository.getById(tutorId);
         List<Student> exisitingStudent = tutor.getStudentList();
@@ -112,13 +112,13 @@ public class TutorService {
         return TutorDTO.convertToDTO(tutor);
     }
 
-    public TutorVideoResponse getTutorVideo(Integer tutorId ){
-        Tutor tutor = TutorDTO.convertFromDTO(getTutor(tutorId));
+    public TutorVideoResponse getTutorVideo(Integer tutorId) {
+        Tutor tutor = tutorRepository.getById(tutorId);
         TutorVideoResponse response = new TutorVideoResponse();
         response.setTutorId(tutor.getId());
         response.setTutorName(tutor.getName());
         List<VideoResponse> vResponse = new ArrayList<>();
-        for(Video video : tutor.getVideoList()){
+        for (Video video : tutor.getVideoList()) {
             VideoResponse videoResponse = new VideoResponse();
             videoResponse.setLink(video.getLink());
             videoResponse.setTitle(video.getName());
@@ -128,20 +128,37 @@ public class TutorService {
         return response;
     }
 
-    public TutorVideoResponse assignTutorVideo(Integer tutorId, Integer videoId){
-        Tutor tutor = TutorDTO.convertFromDTO(getTutor(tutorId));
+    public TutorVideoResponse assignTutorVideo(Integer tutorId, Integer videoId) {
+
+        Tutor tutor = tutorRepository.getById(tutorId);
+
+        Video video = videoRepository.getById(videoId);
+
+        List<Video> tutorExistingVideos = tutor.getVideoList();
+
+        tutorExistingVideos.add(video);
+
+        tutor.setVideoList(tutorExistingVideos);
+
+        tutor = tutorRepository.save(tutor);
+
+
         TutorVideoResponse tutorResponse = new TutorVideoResponse();
         tutorResponse.setTutorId(tutor.getId());
         tutorResponse.setTutorName(tutor.getName());
-        Video video = videoRepository.getById(videoId);
 
-        VideoResponse videoResponse = new VideoResponse();
-        videoResponse.setLink(video.getLink());
-        videoResponse.setTitle(video.getName());
+        List<VideoResponse> videoResponseList = new ArrayList<>();
 
-        List<VideoResponse> exitingVideoRepsoneList = tutorResponse.getTutorVideo();
-        exitingVideoRepsoneList.add(videoResponse);
-        tutorResponse.setTutorVideo(exitingVideoRepsoneList);
+        for (Video v: tutor.getVideoList()) {
+            VideoResponse videoResponse = new VideoResponse();
+            videoResponse.setTitle(v.getName());
+            videoResponse.setLink(v.getLink());
+            videoResponseList.add(videoResponse);
+        }
+
+        tutorResponse.setTutorVideo(videoResponseList);
+
+
         return tutorResponse;
 
     }
