@@ -9,6 +9,7 @@ import com.badar.llp.Models.Video;
 import com.badar.llp.Repositories.LanguageRepository;
 import com.badar.llp.Repositories.StudentRepository;
 import com.badar.llp.Repositories.TutorRepository;
+import com.badar.llp.Repositories.VideoRepository;
 import com.badar.llp.Responses.TutorVideoResponse;
 import com.badar.llp.Responses.VideoResponse;
 import com.badar.llp.Utils.HelperUtils;
@@ -29,6 +30,8 @@ public class TutorService {
     LanguageRepository languageRepository;
     @Autowired
     StudentRepository studentRepository;
+    @Autowired
+    VideoRepository videoRepository;
 
     public TutorDTO getTutor(Integer id) {
         return TutorDTO.convertToDTO(tutorRepository.getById(id));
@@ -118,11 +121,29 @@ public class TutorService {
         for(Video video : tutor.getVideoList()){
             VideoResponse videoResponse = new VideoResponse();
             videoResponse.setLink(video.getLink());
-            video.setName(video.getName());
+            videoResponse.setTitle(video.getName());
             vResponse.add(videoResponse);
         }
         response.setTutorVideo(vResponse);
         return response;
+    }
+
+    public TutorVideoResponse assignTutorVideo(Integer tutorId, Integer videoId){
+        Tutor tutor = TutorDTO.convertFromDTO(getTutor(tutorId));
+        TutorVideoResponse tutorResponse = new TutorVideoResponse();
+        tutorResponse.setTutorId(tutor.getId());
+        tutorResponse.setTutorName(tutor.getName());
+        Video video = videoRepository.getById(videoId);
+
+        VideoResponse videoResponse = new VideoResponse();
+        videoResponse.setLink(video.getLink());
+        videoResponse.setTitle(video.getName());
+
+        List<VideoResponse> exitingVideoRepsoneList = tutorResponse.getTutorVideo();
+        exitingVideoRepsoneList.add(videoResponse);
+        tutorResponse.setTutorVideo(exitingVideoRepsoneList);
+        return tutorResponse;
 
     }
+
 }

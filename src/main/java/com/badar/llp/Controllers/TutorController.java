@@ -1,6 +1,7 @@
 package com.badar.llp.Controllers;
 
 import com.badar.llp.DTOs.TutorDTO;
+import com.badar.llp.Responses.TutorVideoResponse;
 import com.badar.llp.Services.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +64,16 @@ public class TutorController {
     @PutMapping(value = "removestudent")
     public TutorDTO removeStudentFromTutor(@RequestParam Integer tutorId, @PathVariable Integer studentid){
         return tutorService.removeStudentFromTutor(tutorId,studentid);
+    }
+
+    @GetMapping(value = "getTutorVideos")
+        public TutorVideoResponse  getTutorVideos(@RequestParam Integer tutorId){
+        return tutorService.getTutorVideo(tutorId);
+    }
+
+    @PutMapping(value = "assignVideo")
+    public TutorVideoResponse assignTutorVideo(@RequestParam Integer tutorId, @RequestParam Integer videoId){
+        return tutorService.assignTutorVideo(tutorId, videoId);
     }
 
 }
