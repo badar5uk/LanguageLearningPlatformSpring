@@ -5,9 +5,12 @@ import com.badar.llp.DTOs.TutorDTO;
 import com.badar.llp.Models.Language;
 import com.badar.llp.Models.Student;
 import com.badar.llp.Models.Tutor;
+import com.badar.llp.Models.Video;
 import com.badar.llp.Repositories.LanguageRepository;
 import com.badar.llp.Repositories.StudentRepository;
 import com.badar.llp.Repositories.TutorRepository;
+import com.badar.llp.Responses.TutorVideoResponse;
+import com.badar.llp.Responses.VideoResponse;
 import com.badar.llp.Utils.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,5 +107,22 @@ public class TutorService {
         tutor.setStudentList(exisitingStudent);
         tutor = tutorRepository.save(tutor);
         return TutorDTO.convertToDTO(tutor);
+    }
+
+    public TutorVideoResponse getTutorVideo(Integer tutorId ){
+        Tutor tutor = TutorDTO.convertFromDTO(getTutor(tutorId));
+        TutorVideoResponse response = new TutorVideoResponse();
+        response.setTutorId(tutor.getId());
+        response.setTutorName(tutor.getName());
+        List<VideoResponse> vResponse = new ArrayList<>();
+        for(Video video : tutor.getVideoList()){
+            VideoResponse videoResponse = new VideoResponse();
+            videoResponse.setLink(video.getLink());
+            video.setName(video.getName());
+            vResponse.add(videoResponse);
+        }
+        response.setTutorVideo(vResponse);
+        return response;
+
     }
 }
