@@ -12,6 +12,8 @@ public class Tutor extends BasicModel{
     private List<Language> languageList;
     @OneToMany
     private List<Student> studentList;
+    @OneToMany
+    private List<Video> videoList;
 
     public List<Language> getLanguageList() {
         return languageList;
@@ -27,5 +29,13 @@ public class Tutor extends BasicModel{
 
     public void setStudentList(List<Student> studentList) {
         this.studentList = studentList;
+    }
+
+    public List<Video> getVideoList() {
+        return videoList;
+    }
+
+    public void setVideoList(List<Video> videoList) {
+        this.videoList = videoList;
     }
 }

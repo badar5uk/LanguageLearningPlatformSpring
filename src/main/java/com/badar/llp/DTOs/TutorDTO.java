@@ -12,6 +12,7 @@ public class TutorDTO {
     private String name;
     private List<LanguageDTO> languageList;
     private List<StudentDTO> studentList;
+    private List<VideoDTO> videoList;
 
     public Integer getId() {
         return id;
@@ -45,12 +46,21 @@ public class TutorDTO {
         this.studentList = studentList;
     }
 
+    public List<VideoDTO> getVideoList() {
+        return videoList;
+    }
+
+    public void setVideoList(List<VideoDTO> videoList) {
+        this.videoList = videoList;
+    }
+
     public static TutorDTO convertToDTO(Tutor tutor) {
         TutorDTO dto = new TutorDTO();
         dto.setId(tutor.getId());
         dto.setName(tutor.getName());
         dto.setLanguageList(LanguageDTO.convertToDTO(tutor.getLanguageList()));
         dto.setStudentList(StudentDTO.convertToDTO(tutor.getStudentList()));
+        dto.setVideoList(VideoDTO.convertToDTO(tutor.getVideoList()));
         return dto;
     }
 
@@ -60,16 +70,17 @@ public class TutorDTO {
         tutor.setName(dto.getName());
         tutor.setLanguageList(LanguageDTO.convertFromDTO(dto.getLanguageList()));
         tutor.setStudentList(StudentDTO.convertFromDTO(dto.getStudentList()));
+        tutor.setVideoList(VideoDTO.convertFromDTO(dto.getVideoList()));
         return tutor;
     }
 
     public static List<TutorDTO> convertToDTO(List<Tutor> tutorList) {
-        List<TutorDTO> studentDTOList = new ArrayList<>();
+        List<TutorDTO> tutorDTOList = new ArrayList<>();
         if (HelperUtils.isNotNull(tutorList)) {
             for (Tutor tutor : tutorList) {
-                studentDTOList.add(convertToDTO(tutor));
+                tutorDTOList.add(convertToDTO(tutor));
             }
-            return studentDTOList;
+            return tutorDTOList;
         }
         return new ArrayList<>();
     }
