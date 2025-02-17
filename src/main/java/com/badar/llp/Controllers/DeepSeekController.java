@@ -17,15 +17,15 @@ public class DeepSeekController {
     }
 
     @GetMapping("/{chat}")
-    public ResponseEntity<String> promptWithPathVariable(@PathVariable String chat) {
+    public String promptWithPathVariable(@PathVariable String chat) {
         try {
             String response = chatClient
                     .prompt(chat)
                     .call()
                     .content();
-            return ResponseEntity.ok(response);
+            return parseLLMResponse(response);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+            return "Error: " + e.getMessage();
         }
     }
 
@@ -36,6 +36,11 @@ public class DeepSeekController {
                 .user(chat)
                 .stream()
                 .content();
+    }
+
+    String parseLLMResponse(String rawInput) {
+        Integer index = rawInput.indexOf("</think>");
+        return rawInput.substring(index + "</think>".length() + 2).replace("\n", "");
     }
 }
 
