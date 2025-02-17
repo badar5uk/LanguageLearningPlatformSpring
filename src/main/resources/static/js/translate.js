@@ -3,7 +3,9 @@ async function getresponse(){
     var  selectorLang = selectorOpt.options[selectorOpt.selectedIndex].text;
     const inputText = document.getElementById("testinput").value;
     console.log(inputText);
-  
+
+    if(selectorLang != 'language'){
+
     let input = 'http://localhost:8080/api/v1/llm'.concat("/")
     .concat('translate ').concat(inputText).concat(' to ').concat(selectorLang);
   
@@ -24,4 +26,5 @@ async function getresponse(){
     pump(reader);
   });
   }
+}
   getresponse();
