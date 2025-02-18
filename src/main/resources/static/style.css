@@ -596,4 +596,34 @@ a.btn-link.text-light:after {
 	    margin-top:10px;
 	}
 }
+#videoInjector {
+  display: flex;
+  flex-wrap: nowrap; /* Ensures a horizontal row */
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+  gap: 15px;
+  padding: 20px;
+  justify-content: flex-start; /* Aligns items from left */
+}
+
+.video-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  text-align: center;
+  width: 320px;
+  flex: 0 0 auto; /* Prevents cards from shrinking */
+}
+
+.video-frame {
+  border-radius: 8px;
+  border: none;
+}
+
+.video-card h3 {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #333;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
 /* ============ mobile view .end// ============ */
