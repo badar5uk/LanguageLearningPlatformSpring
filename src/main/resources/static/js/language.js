@@ -1,17 +1,24 @@
-let langName = null;
+var langName = "";
 const fetchLink = "http://localhost:8080/language/"
 const videoLinkList = [];
 const videoNameList = [];
 const divClassname = document.getElementById("videoInjector");
-buildCards();
 
-async function setLanguageName(fetchedLang) {
-    console.log(fetchedLang);
-    langName = fetchedLang;
-    return true;
+
+window.onload = function() {
+    const langName = localStorage.getItem('langName'); // Retrieve langName from localStorage
+    if (langName) {
+        buildCards(langName);
+    }
 }
 
-async function getLangId() {
+
+async function setLanguageName(fetchedLang) {
+    console.log(fetchedLang); 
+    localStorage.setItem('langName', fetchedLang);
+}
+
+async function getLangId(langName) {
     let id = -1;
     let response = await fetch("http://localhost:8080/language/getAll")
         .then((result) => result.json())
@@ -23,8 +30,8 @@ async function getLangId() {
     return id;
 }
 
-async function getLinks() {
-    const fetchedId = await getLangId();
+async function getLinks(langName) {
+    const fetchedId = await getLangId(langName);
     let actualLink = fetchLink.concat(fetchedId);
     console.log(actualLink);
     let response = await fetch(actualLink)
@@ -38,8 +45,8 @@ async function getLinks() {
     return response;
 }
 
-async function fetchVideoNames() {
-    const fetchedId = await getLangId();
+async function fetchVideoNames(langName) {
+    const fetchedId = await getLangId(langName);
     let actualLink = fetchLink.concat(fetchedId);
     console.log(actualLink);
     let response = await fetch(actualLink)
@@ -53,10 +60,9 @@ async function fetchVideoNames() {
     return response;
 }
 
-async function buildCards() {
-   await setLanguageName();
-    await getLinks();
-    await fetchVideoNames();
+async function buildCards(langName) {
+    await getLinks(langName);
+    await fetchVideoNames(langName);
 
     // Clear existing content
     divClassname.innerHTML = "";
