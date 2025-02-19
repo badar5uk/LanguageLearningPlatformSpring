@@ -15,9 +15,11 @@ async function getresponse(){
     var i = 1;
     var pump = reader =>
         reader.read().then(({done, value}) => {
-          console.info(i++, new TextDecoder("utf-8").decode(value));
+          let x = (i++, new TextDecoder("utf-8").decode(value));
           if (!done) {
             // Subsequent read() when it's not done yet
+            console.log(x);
+            
             return pump(reader);
           }
         });
@@ -26,5 +28,6 @@ async function getresponse(){
     pump(reader);
   });
   }
+ 
 }
   getresponse();
