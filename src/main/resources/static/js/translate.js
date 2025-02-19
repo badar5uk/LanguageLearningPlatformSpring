@@ -7,8 +7,8 @@ async function getresponse(){
     if(selectorLang != 'language'){
 
     let input = 'http://localhost:8080/api/v1/llm'.concat("/")
-    .concat('translate ').concat(inputText).concat(' to ').concat(selectorLang);
-  
+    .concat('translate: "').concat(inputText).concat('" to ').concat(selectorLang);
+    console.log(input);
     let aiResponse = fetch(input).then(res => {
     var reader = res.body.getReader();
   
