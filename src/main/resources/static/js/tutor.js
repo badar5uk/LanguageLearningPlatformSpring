@@ -85,6 +85,8 @@ async function buildCards(tutorName) {
         // Create title
         const title = document.createElement("h3");
         title.textContent = tutorVideoNameList[i];
+        title.setAttribute("class","videoTitle");
+
 
         // Append iframe and title to card
         card.appendChild(iframe);

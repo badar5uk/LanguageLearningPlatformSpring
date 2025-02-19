@@ -624,6 +624,9 @@ a.btn-link.text-light:after {
   font-size: 16px;
   margin-top: 10px;
   color: #333;
-  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.videoTitle {
+word-wrap: normal;
 }
 /* ============ mobile view .end// ============ */
