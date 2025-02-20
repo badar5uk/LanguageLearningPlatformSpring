@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "inquiry")
+@CrossOrigin(origins = "*")
 public class inquiryController {
 
     @Autowired
