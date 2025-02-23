@@ -21,5 +21,6 @@ public class User extends BasicModel {
     @Column(nullable = false)
     private Role role;
 
+    @Column(nullable = false, unique = true)
     private String username;
 }
