@@ -1,5 +1,5 @@
 package com.badar.llp.Models;
 
 public enum Role {
-    STUDENT, TUTOR
+    ADMIN,SUPER_ADMIN,TUTOR, STUDENT
 }
