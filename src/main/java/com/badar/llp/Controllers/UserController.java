@@ -1,27 +1,29 @@
 package com.badar.llp.Controllers;
 
-import com.badar.llp.Models.User;
-import com.badar.llp.Repositories.UserRepository;
+import com.badar.llp.DTOs.UserDTO;
 import com.badar.llp.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @PostMapping("/register")
-    public User signUp(@RequestBody User user){
-        return userService.signup(user);
-    }
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public String login(@RequestBody User user){
-        return userService.login(user);
+    @PostMapping("register")
+    public UserDTO signUp(@RequestBody UserDTO dto){
+        return userService.signup(dto);
     }
+//
+//    @PostMapping("login")
+//    public String login(@RequestBody User user){
+//        return userService.login(user);
+//    }
 }
