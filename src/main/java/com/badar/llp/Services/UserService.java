@@ -4,11 +4,11 @@ import com.badar.llp.DTOs.UserDTO;
 import com.badar.llp.Models.User;
 import com.badar.llp.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.Date;
 
@@ -21,6 +21,9 @@ public class UserService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    AuthenticationManager authenticationManager;
+
     public UserDTO signup(UserDTO dto){
         User newUser = UserDTO.convertFromDTO(dto);
         newUser.setCreatedDate(new Date());
@@ -32,7 +35,9 @@ public class UserService {
     }
 
     public String login(UserDTO dto){
-        if(userRepository.findByUserName(dto.getUserName()) != null){
+        Authentication authenticate =
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUserName(),dto.getPassword()));
+        if(authenticate.isAuthenticated()){
             return "Success";
         }
         return "User not Found";
