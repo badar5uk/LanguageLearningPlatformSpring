@@ -21,9 +21,9 @@ public class UserController {
     public UserDTO signUp(@RequestBody UserDTO dto){
         return userService.signup(dto);
     }
-//
-//    @PostMapping("login")
-//    public String login(@RequestBody User user){
-//        return userService.login(user);
-//    }
+
+    @PostMapping("login")
+    public String login(@RequestBody UserDTO dto){
+        return userService.login(dto);
+    }
 }

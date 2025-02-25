@@ -25,15 +25,16 @@ public class UserService {
         User newUser = UserDTO.convertFromDTO(dto);
         newUser.setCreatedDate(new Date());
         newUser.setActive(true);
+        newUser.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
         userRepository.save(newUser);
         UserDTO newDTO = UserDTO.convertToDTO(newUser);
         return newDTO;
     }
 
-//    public String login(User user){
-//        if(userRepository.findByUserName(user.getUsername()).equals(true)){
-//            return "Success";
-//        }
-//        return "User not Found";
-//    }
+    public String login(UserDTO dto){
+        if(userRepository.findByUserName(dto.getUserName()) != null){
+            return "Success";
+        }
+        return "User not Found";
+    }
 }
