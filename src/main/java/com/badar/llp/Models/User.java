@@ -2,10 +2,10 @@ package com.badar.llp.Models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+
 
 @Entity
-@Data
+
 @Table(name = "users") // Explicitly specify the table name for clarity
 public class User extends BasicModel {
 
@@ -22,5 +22,37 @@ public class User extends BasicModel {
     private Role role;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String userName;
+
+    public @NotBlank(message = "Email is mandatory") String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NotBlank(message = "Email is mandatory") String email) {
+        this.email = email;
+    }
+
+    public @NotBlank(message = "Password is mandatory") String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotBlank(message = "Password is mandatory") String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getUsername() {
+        return userName;
+    }
+
+    public void setUsername(String username) {
+        this.userName = username;
+    }
 }
