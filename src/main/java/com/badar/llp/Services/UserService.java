@@ -24,6 +24,9 @@ public class UserService {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    @Autowired
+    JwtService jwtService;
+
     public UserDTO signup(UserDTO dto){
         User newUser = UserDTO.convertFromDTO(dto);
         newUser.setCreatedDate(new Date());
@@ -38,7 +41,7 @@ public class UserService {
         Authentication authenticate =
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUserName(),dto.getPassword()));
         if(authenticate.isAuthenticated()){
-            return "Success";
+            return jwtService.generateToken(dto);
         }
         return "User not Found";
     }
