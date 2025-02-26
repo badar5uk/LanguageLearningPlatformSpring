@@ -1,7 +1,6 @@
 package com.badar.llp.Services;
 
 import com.badar.llp.DTOs.UserDTO;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
@@ -16,13 +15,13 @@ public class JwtService {
     private String secretKey = null;
 
 
-  public JwtBuilder generateToken(UserDTO dto){
+  public String generateToken(UserDTO dto){
       Map<String,Object> map = new HashMap<>();
       return Jwts.builder().addClaims(map).setSubject(dto.getUserName())
               .setIssuer("LLP")
               .setIssuedAt(new Date(System.currentTimeMillis()))
               .setExpiration(new Date(System.currentTimeMillis() + 60*10*1000))
-              .signWith(SignatureAlgorithm.HS256, getSecretKey());
+              .signWith(SignatureAlgorithm.HS256, getSecretKey()).compact();
    }
 
     public String getSecretKey(){
