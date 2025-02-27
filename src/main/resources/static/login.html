@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login & Signup Form</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+
+<body>
+  <section class="wrapper">
+    <div class="form signup">
+      <header>Signup</header>
+      <form id="signupForm">
+        <input type="text" id="signupName" placeholder="Full name" required />
+        <input type="email" id="signupEmail" placeholder="Email address" required />
+        <input type="password" id="signupPassword" placeholder="Password" required />
+        <select class="form-select" id="roles" name="roles">
+          <option>Select a role</option>
+        </select>
+        <div class="checkbox">
+          <input type="checkbox" id="signupCheck" />
+          <label for="signupCheck">I accept all terms & conditions</label>
+        </div>
+        <input type="submit" value="Signup" />
+      </form>
+    </div>
+    <div class="form login">
+      <header>Login</header>
+      <form id="loginForm">
+        <input type="text" id="loginUserName" placeholder="User Name" required />
+        <input type="password" id="loginPassword" placeholder="Password" required />
+        <a href="#">Forgot password?</a>
+        <input type="submit" value="Login" />
+      </form>
+    </div>
+    <script>
+      window.onload = async function rolesFetch() {
+        await getRoles();
+      };
+
+      const wrapper = document.querySelector(".wrapper"),
+        signupHeader = document.querySelector(".signup header"),
+        loginHeader = document.querySelector(".login header");
+
+      loginHeader.addEventListener("click", () => {
+        wrapper.classList.add("active");
+      });
+      signupHeader.addEventListener("click", () => {
+        wrapper.classList.remove("active");
+      });
+
+      // Handle login form submission
+      const loginForm = document.getElementById('loginForm');
+      loginForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent form from reloading the page
+
+        const username = document.getElementById('loginUserName').value;
+        const password = document.getElementById('loginPassword').value;
+
+        const loginData = {
+          userName: username,
+          password: password
+        };
+
+        fetch('http://localhost:8080/user/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(loginData),
+        })
+          .then(response => response.json())
+          .then(data => {
+            alert('Login successful!');
+            localStorage.setItem(`token`, data.token);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            alert('An error occurred during login.');
+          });
+      });
+
+      // Handle signup form submission
+      const signupForm = document.getElementById('signupForm');
+      signupForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent form from reloading the page
+
+        const name = document.getElementById('signupName').value;
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const termsAccepted = document.getElementById('signupCheck').checked;
+        //let selectedOption = selectorElement.innerText
+        let selectedOption = document.getElementById("roles").value;
+        if(selectedOption === "Select a role"){
+          alert('A valid role must be selected.');
+          return;
+        }
+        if (!termsAccepted) {
+          alert('You must accept the terms and conditions.');
+          return;
+        }
+
+        const signupData = {
+          name: name,
+          userName: name,
+          email: email,
+          password: password,
+          role: selectedOption
+        };
+
+        fetch('http://localhost:8080/user/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(signupData),
+        })
+          .then(response => response.json())
+          .then(data => {
+
+            alert('Signup successful!');
+            // Redirect or handle success logic
+
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            alert('An error occurred during signup.');
+          });
+      });
+    </script>
+
+    <script>
+      async function getRoles() {
+        let response = await fetch("http://localhost:8080/user/roles")
+          .then((response) => response.json())
+
+        await response.forEach(element => {
+          let selectorElement = document.getElementById("roles");
+          const role = document.createElement("option");
+          role.innerHTML = (element);
+          role.setAttribute('id', element)
+          selectorElement.append(role);
+        });
+
+        return response;
+      }
+
+
+    </script>
+  </section>
+</body>
+
+</html>
