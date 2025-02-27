@@ -3,10 +3,8 @@ package com.badar.llp.Services;
 import com.badar.llp.DTOs.UserDTO;
 import com.badar.llp.Models.User;
 import com.badar.llp.Repositories.UserRepository;
+import com.badar.llp.Utils.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +20,6 @@ public class UserService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    AuthenticationManager authenticationManager;
-
-    @Autowired
     JwtService jwtService;
 
     public UserDTO signup(UserDTO dto){
@@ -37,12 +32,15 @@ public class UserService {
         return newDTO;
     }
 
-    public String login(UserDTO dto){
-        Authentication authenticate =
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUserName(),dto.getPassword()));
-        if(authenticate.isAuthenticated()){
-            return jwtService.generateToken(dto);
+    public String login(UserDTO dto) throws Exception {
+        User user = userRepository.findByUserName(dto.getUserName());
+        if(HelperUtils.isNull(user) || !user.getActive()){
+            throw new Exception("User not valid");
         }
-        return "User not Found";
+        if(!bCryptPasswordEncoder.matches(dto.getPassword(), user.getPassword())){
+            throw new Exception("User not valid");
+
+        }
+        return jwtService.generateToken(dto);
     }
 }
