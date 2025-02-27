@@ -3,12 +3,18 @@ package com.badar.llp.Controllers;
 import com.badar.llp.DTOs.UserDTO;
 import com.badar.llp.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
+@RequestMapping("user")
 public class UserController {
 
     @Autowired
@@ -18,12 +24,12 @@ public class UserController {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("register")
-    public UserDTO signUp(@RequestBody UserDTO dto){
+    public UserDTO signUp(@RequestBody UserDTO dto) {
         return userService.signup(dto);
     }
 
     @PostMapping("login")
-    public String login(@RequestBody UserDTO dto){
-        return userService.login(dto);
+    public ResponseEntity<?> login(@RequestBody UserDTO dto) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("token", userService.login(dto)));
     }
 }
