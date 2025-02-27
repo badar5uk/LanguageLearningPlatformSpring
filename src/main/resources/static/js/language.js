@@ -20,7 +20,7 @@ async function setLanguageName(fetchedLang) {
 
 async function getLangId(langName) {
     let id = -1;
-    let response = await fetch("http://localhost:8080/language/getAll")
+    let response = await fetch("http://localhost:8080/language/getAll", {'Authorization': 'Bearer '.concat(localStorage.getItem('token'))})
         .then((result) => result.json())
     response.forEach((element) => {
         if (langName === element.name) {
