@@ -1,6 +1,7 @@
 package com.badar.llp.Services;
 
 import com.badar.llp.DTOs.UserDTO;
+import com.badar.llp.Models.Role;
 import com.badar.llp.Models.User;
 import com.badar.llp.Repositories.UserRepository;
 import com.badar.llp.Utils.HelperUtils;
@@ -8,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -42,5 +46,9 @@ public class UserService {
 
         }
         return jwtService.generateToken(dto);
+    }
+    public List<Role> getRoles(){
+        List<Role> roleList = new ArrayList<Role>(EnumSet.allOf(Role.class));
+        return roleList;
     }
 }
