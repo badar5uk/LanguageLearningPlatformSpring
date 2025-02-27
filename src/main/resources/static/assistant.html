@@ -52,14 +52,14 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle pe-3" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false">Languages</a>
               <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
-                <li><a href="arabic.html" class="dropdown-item">Arabic </a></li>
-                <li><a href="english.html" class="dropdown-item">English</a></li>
-                <li><a href="chinese.html" class="dropdown-item">Chinese </a></li>
-                <li><a href="spanish.html" class="dropdown-item">Spanish</a></li>
+                <li><a href="language.html" class="dropdown-item">Java</a></li>
+                <li><a href="language.html" class="dropdown-item">JavaScript</a></li>
+                <li><a href="language.html" class="dropdown-item">C++</a></li>
+                <li><a href="language.html" class="dropdown-item">C#</a></li>
               </ul>
             </li>
             <li class="nav-item active">
-              <a href="test.html" class="nav-link">Translator</a>
+              <a href="assistant.html" class="nav-link">Ai assistant</a>
             </li>
           </ul>
         </div>
@@ -79,15 +79,15 @@
   
   <section>
     <div class="container-lg">
-      <div class="bg-secondary text-light py-5 my-5 bg-success">
+      <div class="custom-bg py-5 my-5">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-md-4 p-3">
               <div class="section-header">
-                <h2 class="section-title display-5 text-black">What Would you like to translate?</h2>
+                <h2 class="section-title display-5 text-black">What do you need help with?</h2>
               </div>
               <button type="button" class="btn btn-secondary btn-group-sm"
-                onclick="getresponse()">Translate</button>
+                onclick="getresponse()">Submit</button>
               <select class="form-select" id="languages" name="languages">
                 <option>language</option>
                 <option value="af">Afrikaans</option>
@@ -237,7 +237,7 @@
 
 
             <div class="col-md-4 p-3">
-              <p style="color: black;">Your Text here: </p>
+              <p style="color: black;">Your prompt here: </p>
               <textarea id="testinput" type="text" placeholder="Write Anything"></textarea>
               <p style="color: black;">Output: </p>
               <textarea id="airesponse" placeholder="....."></textarea>
