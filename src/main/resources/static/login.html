@@ -74,8 +74,14 @@
         })
           .then(response => response.json())
           .then(data => {
-            alert('Login successful!');
             localStorage.setItem(`token`, data.token);
+            if(data.status != 200){
+              alert('User or password incorrect');
+            }
+            else {
+              alert('Login successful');
+              window.location = "http://localhost:8080/index.html";
+            }
           })
           .catch((error) => {
             console.error('Error:', error);
@@ -122,7 +128,7 @@
           .then(data => {
 
             alert('Signup successful!');
-            // Redirect or handle success logic
+            window.location = "http://localhost:8080/index.html"
 
           })
           .catch((error) => {
