@@ -1,7 +1,6 @@
 package com.badar.llp.DTOs;
 
 import com.badar.llp.Models.Role;
-import com.badar.llp.Models.Student;
 import com.badar.llp.Models.User;
 import com.badar.llp.Utils.HelperUtils;
 
@@ -15,6 +14,24 @@ public class UserDTO {
     private String password;
     private Role role;
     private String userName;
+    private List<LanguageDTO> languageList;
+    private List<VideoDTO> videoList;
+
+    public List<LanguageDTO> getLanguageList() {
+        return languageList;
+    }
+
+    public void setLanguageList(List<LanguageDTO> languageList) {
+        this.languageList = languageList;
+    }
+
+    public List<VideoDTO> getVideoList() {
+        return videoList;
+    }
+
+    public void setVideoList(List<VideoDTO> videoList) {
+        this.videoList = videoList;
+    }
 
     public Integer getId() {
         return id;
@@ -72,6 +89,8 @@ public class UserDTO {
         dto.setName(user.getName());
         dto.setPassword(user.getPassword());
         dto.setRole(user.getRole());
+        dto.setLanguageList(LanguageDTO.convertToDTO(user.getLanguageList()));
+        dto.setVideoList(VideoDTO.convertToDTO(user.getVideoList()));
         return dto;
     }
 
@@ -83,6 +102,8 @@ public class UserDTO {
         user.setName(dto.getName());
         user.setRole(dto.getRole());
         user.setPassword(dto.getPassword());
+        user.setLanguageList(LanguageDTO.convertFromDTO(dto.getLanguageList()));
+        user.setVideoList(VideoDTO.convertFromDTO(dto.getVideoList()));
         return user;
     }
 
