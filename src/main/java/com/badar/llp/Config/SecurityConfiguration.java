@@ -27,7 +27,7 @@ public class SecurityConfiguration {
         httpSecurity.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request ->
                         request.requestMatchers("/user/register","/user/login","/user/roles").permitAll() // Ensure this is explicitly allowed
-                                .anyRequest().authenticated())
+                                .anyRequest().not().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class);
