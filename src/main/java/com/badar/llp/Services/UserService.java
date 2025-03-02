@@ -1,9 +1,14 @@
 package com.badar.llp.Services;
 
 import com.badar.llp.DTOs.UserDTO;
+import com.badar.llp.Models.Language;
 import com.badar.llp.Models.Role;
 import com.badar.llp.Models.User;
+import com.badar.llp.Models.Video;
 import com.badar.llp.Repositories.UserRepository;
+import com.badar.llp.Responses.LanguageResponse;
+import com.badar.llp.Responses.UserResponse;
+import com.badar.llp.Responses.VideoResponse;
 import com.badar.llp.Utils.HelperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,5 +55,29 @@ public class UserService {
     public List<Role> getRoles(){
         List<Role> roleList = new ArrayList<Role>(EnumSet.allOf(Role.class));
         return roleList;
+    }
+
+    public UserResponse getUserInfo(String userName){
+        User user = userRepository.findByUserName(userName);
+        UserResponse response = new UserResponse();
+        response.setName(user.getName());
+        response.setUserName(userName);
+        response.setEmail(user.getEmail());
+        response.setRole(user.getRole());
+        List<VideoResponse> vResponse = new ArrayList<>();
+        for(Video video: user.getVideoList()){
+            VideoResponse videoResponse = new VideoResponse();
+            videoResponse.setLink(video.getLink());
+            videoResponse.setTitle(video.getName());
+            vResponse.add(videoResponse);
+        }
+        response.setVideoList(vResponse);
+        List<LanguageResponse> lResposne = new ArrayList<>();
+        for(Language language: user.getLanguageList()){
+            LanguageResponse languageResponse = new LanguageResponse();
+            languageResponse.setLanguageName(language.getName());
+        }
+        response.setLanguageList(lResposne);
+        return response;
     }
 }

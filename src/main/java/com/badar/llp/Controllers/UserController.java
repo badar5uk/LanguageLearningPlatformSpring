@@ -2,6 +2,7 @@ package com.badar.llp.Controllers;
 
 import com.badar.llp.DTOs.UserDTO;
 import com.badar.llp.Models.Role;
+import com.badar.llp.Responses.UserResponse;
 import com.badar.llp.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,5 +36,10 @@ public class UserController {
     @GetMapping("roles")
     public List<Role> getAllRoles(){
         return userService.getRoles();
+    }
+
+    @GetMapping(value = "{userName}")
+    public UserResponse getUserInfo(@PathVariable String userName){
+        return userService.getUserInfo(userName);
     }
 }
