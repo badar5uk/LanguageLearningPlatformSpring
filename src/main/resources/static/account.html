@@ -335,12 +335,27 @@
 
         <script>
             const token = localStorage.getItem('token');
-            function checkUser(token) {
+            async function checkUser(token) {
                 const arrayToken = token.split('.');
                 const tokenPayload = JSON.parse(atob(arrayToken[1]));
                 return tokenPayload.sub;
             }
-            console.log(checkUser(token));
+            
+
+            async function getUserInfo(){
+            const userNameFromToken = await checkUser(token);
+
+            const response = await fetch('http://localhost:8080/user/'.concat(userNameFromToken));
+            const result = await response.json();
+            let userName = document.createElement("h2");
+            userName.textContent = result.userName;
+
+            document.body.appendChild(userName);
+
+            }
+
+            console.log(getUserInfo());
+            
         </script>
 
 
