@@ -16,6 +16,7 @@
       <form id="signupForm">
         <input type="text" id="signupName" placeholder="Full name" required />
         <input type="email" id="signupEmail" placeholder="Email address" required />
+        <input type="text" id="signupUserName" placeholder="User Name" required />
         <input type="password" id="signupPassword" placeholder="Password" required />
         <select class="form-select" id="roles" name="roles">
           <option>Select a role</option>
@@ -76,11 +77,11 @@
           .then(data => {
             localStorage.setItem(`token`, data.token);
             if(data.status != 200){
-              alert('User or password incorrect');
-            }
-            else {
               alert('Login successful');
               window.location = "http://localhost:8080/index.html";
+            }
+            else {
+              alert('User or password incorrect');
             }
           })
           .catch((error) => {
@@ -98,6 +99,7 @@
         const email = document.getElementById('signupEmail').value;
         const password = document.getElementById('signupPassword').value;
         const termsAccepted = document.getElementById('signupCheck').checked;
+        const username = document.getElementById('signupUserName').value;
         //let selectedOption = selectorElement.innerText
         let selectedOption = document.getElementById("roles").value;
         if(selectedOption === "Select a role"){
@@ -111,7 +113,7 @@
 
         const signupData = {
           name: name,
-          userName: name,
+          userName: username,
           email: email,
           password: password,
           role: selectedOption
