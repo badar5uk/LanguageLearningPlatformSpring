@@ -38,8 +38,14 @@
       </form>
     </div>
     <script>
+
       window.onload = async function rolesFetch() {
-        await getRoles();
+        if (localStorage.getItem('token') != null) {
+          window.location = "account.html"
+        }
+        else{
+          getRoles();
+        }
       };
 
       const wrapper = document.querySelector(".wrapper"),
@@ -76,9 +82,9 @@
           .then(response => response.json())
           .then(data => {
             localStorage.setItem(`token`, data.token);
-            if(data.status != 200){
+            if (data.status != 200) {
               alert('Login successful');
-              window.location = "http://localhost:8080/index.html";
+              window.location = "index.html";
             }
             else {
               alert('User or password incorrect');
@@ -102,7 +108,7 @@
         const username = document.getElementById('signupUserName').value;
         //let selectedOption = selectorElement.innerText
         let selectedOption = document.getElementById("roles").value;
-        if(selectedOption === "Select a role"){
+        if (selectedOption === "Select a role") {
           alert('A valid role must be selected.');
           return;
         }
@@ -130,7 +136,7 @@
           .then(data => {
 
             alert('Signup successful!');
-            window.location = "http://localhost:8080/index.html"
+            window.location = "index.html"
 
           })
           .catch((error) => {
