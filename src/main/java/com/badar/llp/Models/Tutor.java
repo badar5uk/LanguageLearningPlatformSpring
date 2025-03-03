@@ -41,4 +41,12 @@ public class Tutor extends BasicModel{
     public void setVideoList(List<Video> videoList) {
         this.videoList = videoList;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

@@ -13,6 +13,7 @@ public class TutorDTO {
     private List<LanguageDTO> languageList;
     private List<StudentDTO> studentList;
     private List<VideoDTO> videoList;
+    private UserDTO userDTO;
 
     public Integer getId() {
         return id;
@@ -54,6 +55,14 @@ public class TutorDTO {
         this.videoList = videoList;
     }
 
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
+    }
+
     public static TutorDTO convertToDTO(Tutor tutor) {
         TutorDTO dto = new TutorDTO();
         dto.setId(tutor.getId());
@@ -61,6 +70,7 @@ public class TutorDTO {
         dto.setLanguageList(LanguageDTO.convertToDTO(tutor.getLanguageList()));
         dto.setStudentList(StudentDTO.convertToDTO(tutor.getStudentList()));
         dto.setVideoList(VideoDTO.convertToDTO(tutor.getVideoList()));
+        dto.setUserDTO(UserDTO.convertToDTO(tutor.getUser()));
         return dto;
     }
 
@@ -71,6 +81,7 @@ public class TutorDTO {
         tutor.setLanguageList(LanguageDTO.convertFromDTO(dto.getLanguageList()));
         tutor.setStudentList(StudentDTO.convertFromDTO(dto.getStudentList()));
         tutor.setVideoList(VideoDTO.convertFromDTO(dto.getVideoList()));
+        tutor.setUser(UserDTO.convertFromDTO(dto.getUserDTO()));
         return tutor;
     }
 
