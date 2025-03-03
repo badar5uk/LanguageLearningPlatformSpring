@@ -190,9 +190,21 @@
             </div>
         </div>
 
-
-
-
+        <!-------------------------->
+        <section>
+            <div class="container-lg">
+                <div class="custom-bg py-5 my-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-4 p-3">
+                                <div class="section-header">
+                                    <span id="userName"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </section>
+        <!-------------------------->
 
 
         <section class="py-5">
@@ -334,28 +346,40 @@
         <script src="js/script.js"></script>
 
         <script>
+
+            window.onload = async function rolesFetch() {
+                if (localStorage.getItem('token') === null) {
+                    window.location = "login.html";
+
+                }
+                else{
+                    await getUserInfo();
+                }
+            };
+
             const token = localStorage.getItem('token');
             async function checkUser(token) {
                 const arrayToken = token.split('.');
                 const tokenPayload = JSON.parse(atob(arrayToken[1]));
                 return tokenPayload.sub;
             }
-            
 
-            async function getUserInfo(){
-            const userNameFromToken = await checkUser(token);
 
-            const response = await fetch('http://localhost:8080/user/'.concat(userNameFromToken));
-            const result = await response.json();
-            let userName = document.createElement("h2");
-            userName.textContent = result.userName;
+            async function getUserInfo() {
+                const userNameFromToken = await checkUser(token);
 
-            document.body.appendChild(userName);
+                const response = await fetch('http://localhost:8080/user/'.concat(userNameFromToken));
+                const result = await response.json();
+                // get User name
+                console.log(result);
+                let userName = document.createElement("h2");
+                userName.textContent = result.userName;
+                const elementUser = document.getElementById('userName')
+                elementUser.append(userName);
 
             }
 
-            console.log(getUserInfo());
-            
+
         </script>
 
 
