@@ -3,8 +3,6 @@ package com.badar.llp.Models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
-import java.util.List;
-
 
 @Entity
 
@@ -26,34 +24,12 @@ public class User extends BasicModel {
     @Column(nullable = false, unique = true)
     private String userName;
 
-    @OneToMany
-    private List<Language> languageList;
-
-    @OneToMany
-    private List<Video> videoList;
-
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public List<Language> getLanguageList() {
-        return languageList;
-    }
-
-    public void setLanguageList(List<Language> languageList) {
-        this.languageList = languageList;
-    }
-
-    public List<Video> getVideoList() {
-        return videoList;
-    }
-
-    public void setVideoList(List<Video> videoList) {
-        this.videoList = videoList;
     }
 
     public @NotBlank(message = "Email is mandatory") String getEmail() {
