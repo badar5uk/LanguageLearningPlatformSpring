@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TutorRepository extends JpaRepository<Tutor,Integer> {
 
-    @Query("SELECT t FROM tutor t WHERE t.userName = :userName")
+    @Query("SELECT t FROM Tutor t WHERE t.user.userName = :userName")
     Tutor findByUserName(@Param("userName") String userName);
 }
