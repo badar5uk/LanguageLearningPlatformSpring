@@ -12,8 +12,6 @@ public class Student extends BasicModel {
     @OneToMany
     private List<Language> languageList;
 
-    private List<Video> videoList;
-
     @OneToOne
     private User user;
 
@@ -25,13 +23,6 @@ public class Student extends BasicModel {
         this.languageList = languageList;
     }
 
-    public List<Video> getVideoList() {
-        return videoList;
-    }
-
-    public void setVideoList(List<Video> videoList) {
-        this.videoList = videoList;
-    }
 
     public User getUser() {
         return user;

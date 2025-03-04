@@ -44,7 +44,22 @@ public class UserService {
         newUser.setCreatedDate(new Date());
         newUser.setActive(true);
         newUser.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
-        userRepository.save(newUser);
+        newUser = userRepository.save(newUser);
+
+        if (newUser.getRole() == TUTOR) {
+            Tutor tutor = new Tutor();
+            tutor.setName(dto.getName());
+            tutor.setCreatedDate(new Date());
+            tutor.setActive(true);
+            tutor.setUser(newUser);
+            tutorRepository.save(tutor);
+        } else if (newUser.getRole() == STUDENT) {
+            Student student = new Student();
+            student.setName(dto.getName());
+            student.setCreatedDate(new Date());
+            student.setActive(true);
+            studentRepository.save(student);
+        }
         UserDTO newDTO = UserDTO.convertToDTO(newUser);
         return newDTO;
     }
