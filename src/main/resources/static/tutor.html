@@ -106,6 +106,7 @@
 
                 <div
                     class="col-sm-8 col-lg-2 d-flex gap-5 align-items-center justify-content-center justify-content-sm-end">
+                    <span id="addLogOutHere"></span>
                     <ul class="d-flex justify-content-end list-unstyled m-0">
                         <li>
                             <a href="#" class="p-2 mx-1">
@@ -269,6 +270,30 @@
         crossorigin="anonymous"></script>
     <script src="js/plugins.js"></script>
     <script src="js/script.js"></script>
+
+    <script>
+
+window.onload = async function logOut() {
+    if (localStorage.getItem('token') === null) {
+    }
+    else {
+
+      await addLogout();
+
+    }
+  }
+
+  async function logout() {
+    localStorage.removeItem("token");
+    window.location = "login.html";
+  }
+
+  async function addLogout() {
+    const divElement = document.getElementById('addLogOutHere');
+    divElement.innerHTML = '<button onclick="logout()"> <span class="button_top"> Log Out </span></button>'
+  }
+
+    </script>
 
 </body>
 
