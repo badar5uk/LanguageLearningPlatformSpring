@@ -12,6 +12,8 @@
 <body>
   <section class="wrapper">
     <div class="form signup">
+      <img src="images/undo.png" alt="Go to Homepage" onclick="goToHomepage()" style="cursor: pointer; width: 30px; height: auto;"/>
+
       <header>Signup</header>
       <form id="signupForm">
         <input type="text" id="signupName" placeholder="Full name" required />
@@ -37,7 +39,11 @@
         <input type="submit" value="Login" />
       </form>
     </div>
+
     <script>
+      function goToHomepage() {
+        window.location.href = 'index.html'; // Replace with your homepage URL
+      }
 
       window.onload = async function rolesFetch() {
         if (localStorage.getItem('token') != null) {
@@ -161,8 +167,6 @@
 
         return response;
       }
-
-
     </script>
   </section>
 </body>
