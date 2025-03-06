@@ -39,7 +39,7 @@ public class UserService {
     @Autowired
     JwtService jwtService;
 
-    public UserDTO signup(UserDTO dto) {
+    public UserResponse signup(UserDTO dto) {
         User newUser = UserDTO.convertFromDTO(dto);
         newUser.setCreatedDate(new Date());
         newUser.setActive(true);
@@ -58,10 +58,11 @@ public class UserService {
             student.setName(dto.getName());
             student.setCreatedDate(new Date());
             student.setActive(true);
+            student.setUser(newUser);
             studentRepository.save(student);
         }
-        UserDTO newDTO = UserDTO.convertToDTO(newUser);
-        return newDTO;
+        UserResponse response = UserResponse.convertToResponse(newUser);
+        return response;
     }
 
     public String login(UserDTO dto) throws Exception {

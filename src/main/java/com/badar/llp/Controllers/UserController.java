@@ -24,7 +24,7 @@ public class UserController {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("register")
-    public UserDTO signUp(@RequestBody UserDTO dto) {
+    public UserResponse signUp(@RequestBody UserDTO dto) {
         return userService.signup(dto);
     }
 

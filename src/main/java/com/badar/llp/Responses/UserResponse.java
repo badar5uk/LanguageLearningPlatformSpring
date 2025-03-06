@@ -1,6 +1,7 @@
 package com.badar.llp.Responses;
 
 import com.badar.llp.Models.Role;
+import com.badar.llp.Models.User;
 
 import java.util.List;
 
@@ -58,5 +59,14 @@ public class UserResponse {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public static UserResponse convertToResponse(User user){
+        UserResponse response = new UserResponse();
+        response.setRole(user.getRole());
+        response.setName(user.getName());
+        response.setUserName(user.getUserName());
+        response.setEmail(user.getEmail());
+        return response;
     }
 }
