@@ -235,6 +235,21 @@
                                             <div class="card-body">
                                                 <p id="languages" class="text-primary font-italic me-1">Languages</p>
                                                 <p class="mt-4 mb-1" style="font-size: .77rem;">BEEP</p>
+                                                <!-- Trigger/Open The Modal -->
+                                                <button id="myBtn">Add Language</button>
+
+                                                <!-- The Modal -->
+                                                <div id="myModal" class="modal">
+
+                                                    <!-- Modal content -->
+                                                    <div class="modal-content">
+                                                        <span class="close">&times;</span>
+                                                        <h3>Pick a language</h3>
+                                                        <Select id="languages">
+                                                            <option value="" disabled selected>Select a language</option>
+                                                        </Select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -393,8 +408,9 @@
                 }
                 else {
                     await addLogout();
+                    await getLanguages();
                     await getUserInfo();
-                    
+
                 }
             };
 
@@ -405,7 +421,7 @@
                 return tokenPayload.sub;
             }
 
-            async function addLogout(){
+            async function addLogout() {
                 const divElement = document.getElementById('addLogOutHere');
                 divElement.innerHTML = '<button onclick="logout()"> <span class="button_top"> Log Out </span></button>'
             }
@@ -443,13 +459,52 @@
                     let language = document.createElement("p");
                     language.textContent = element.textContent;
                     language.setAttribute('class', "mt-4 mb-1");
-                    language.setAttribute('style',"font-size: .77rem;")
+                    language.setAttribute('style', "font-size: .77rem;")
                     const elementLanguage = document.getElementById('languages');
                     elementLanguage.append(language);
                 });
             }
 
 
+        </script>
+
+        <script>
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on the button, open the modal
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            async function getLanguages() {
+        let response = await fetch("http://localhost:8080/language/getAll")
+          .then((response) => response.json());
+        await response.forEach(element => {
+          let selectorElement = document.getElementById("languages");
+          const language = document.createElement("option");
+          language.innerText = (element.name);
+          language.setAttribute('id', element.name);
+          selectorElement.append(language);
+        });
+    }
         </script>
 
 
