@@ -12,6 +12,7 @@ public class UserResponse {
     private List<VideoResponse> videoList;
     private List<LanguageResponse> languageList;
     private Role role;
+    private Integer id;
 
     public String getName() {
         return name;
@@ -61,12 +62,21 @@ public class UserResponse {
         this.role = role;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public static UserResponse convertToResponse(User user){
         UserResponse response = new UserResponse();
         response.setRole(user.getRole());
         response.setName(user.getName());
         response.setUserName(user.getUserName());
         response.setEmail(user.getEmail());
+        response.setId(user.getId());
         return response;
     }
 }

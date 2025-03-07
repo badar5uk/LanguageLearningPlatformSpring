@@ -92,22 +92,24 @@ public class UserService {
         if (user.getRole() == TUTOR) {
             List<VideoResponse> vResponse = new ArrayList<>();
             Tutor tutor = tutorRepository.findByUserName(userName);
+            response.setId(tutor.getId());
             for (Video video : tutor.getVideoList()) {
                 VideoResponse videoResponse = new VideoResponse();
                 videoResponse.setLink(video.getLink());
                 videoResponse.setTitle(video.getName());
                 vResponse.add(videoResponse);
-
-                response.setVideoList(vResponse);
-                List<LanguageResponse> lResposne = new ArrayList<>();
-                for (Language language : tutor.getLanguageList()) {
-                    LanguageResponse languageResponse = new LanguageResponse();
-                    languageResponse.setLanguageName(language.getName());
-                }
-                response.setLanguageList(lResposne);
             }
+            response.setVideoList(vResponse);
+            List<LanguageResponse> lResposne = new ArrayList<>();
+            for (Language language : tutor.getLanguageList()) {
+                LanguageResponse languageResponse = new LanguageResponse();
+                languageResponse.setLanguageName(language.getName());
+                lResposne.add(languageResponse);
+            }
+            response.setLanguageList(lResposne);
         } else if (user.getRole() == STUDENT) {
             Student student = studentRepository.findByUserName(userName);
+            response.setId(student.getId());
             List<LanguageResponse> lResposne = new ArrayList<>();
             for (Language language : student.getLanguageList()) {
                 LanguageResponse languageResponse = new LanguageResponse();

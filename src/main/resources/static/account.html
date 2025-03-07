@@ -234,8 +234,6 @@
                                         <div class="card mb-4 mb-md-0">
                                             <div class="card-body">
                                                 <p id="languages" class="text-primary font-italic me-1">Languages</p>
-                                                <p class="mt-4 mb-1" style="font-size: .77rem;">BEEP</p>
-                                                <!-- Trigger/Open The Modal -->
                                                 <button id="myBtn">Add Language</button>
 
                                                 <!-- The Modal -->
@@ -245,9 +243,11 @@
                                                     <div class="modal-content">
                                                         <span class="close">&times;</span>
                                                         <h3>Pick a language</h3>
-                                                        <Select id="languages">
-                                                            <option value="" disabled selected>Select a language</option>
+                                                        <Select id="languageSelector">
+                                                            <option value="" disabled selected>Select a language
+                                                            </option>
                                                         </Select>
+                                                        <button onclick="postLanguage()">Add</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -436,6 +436,11 @@
                 const response = await fetch('http://localhost:8080/user/'.concat(userNameFromToken));
                 const result = await response.json();
                 console.log(result);
+
+                // get user Id
+                let userId = result.id;
+                localStorage.setItem('userId', userId);
+
                 // get User name
                 let userName = document.createElement("h2");
                 userName.textContent = result.userName;
@@ -449,6 +454,7 @@
                 //get Role
                 const elementRole = document.getElementById('role');
                 elementRole.innerText = result.role;
+                localStorage.setItem('currentUserRole', result.role);
 
                 //get E-mail
                 const elementEmail = document.getElementById('email');
@@ -456,11 +462,12 @@
 
                 //get Languages
                 await result.languageList.forEach(element => {
-                    let language = document.createElement("p");
-                    language.textContent = element.textContent;
+                    console.log(element);
+                    let language = document.createElement('p');
+                    language.textContent = element.languageName;
                     language.setAttribute('class', "mt-4 mb-1");
                     language.setAttribute('style', "font-size: .77rem;")
-                    const elementLanguage = document.getElementById('languages');
+                    let elementLanguage = document.getElementById('languages');
                     elementLanguage.append(language);
                 });
             }
@@ -494,17 +501,46 @@
                 }
             }
 
+            // get languages from database to be appended to the seelctor
             async function getLanguages() {
-        let response = await fetch("http://localhost:8080/language/getAll")
-          .then((response) => response.json());
-        await response.forEach(element => {
-          let selectorElement = document.getElementById("languages");
-          const language = document.createElement("option");
-          language.innerText = (element.name);
-          language.setAttribute('id', element.name);
-          selectorElement.append(language);
-        });
-    }
+                let response = await fetch("http://localhost:8080/language/getAll")
+                    .then((response) => response.json());
+                await response.forEach(element => {
+                    let selectorElement = document.getElementById("languageSelector");
+                    const language = document.createElement("option");
+                    language.innerText = (element.name);
+                    localStorage.setItem('langId',element.id);
+                    language.setAttribute('id', element.name);
+                    selectorElement.append(language);
+                });
+            }
+
+            function postLanguage() {
+                let selectorElement = document.getElementById("languageSelector").value;
+                let currentUserRole = localStorage.getItem('currentUserRole');
+                const langId = localStorage.getItem('langId');
+                const userId = localStorage.getItem('userId');
+                if (currentUserRole == "TUTOR") {
+                    const langData = {
+                        name: selectorElement,
+                    };
+
+                    ////Post language to current user
+                    fetch('http://localhost:8080/tutor/assignlanguage?tutorId='
+                    .concat(userId).concat("&langid=").concat(langId), {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(langData),
+                    })
+                        .then(response => response.json())
+                        .then()
+                }
+                else if (currentUserRole == "STUDENT") {
+
+                }
+            }
         </script>
 
 
