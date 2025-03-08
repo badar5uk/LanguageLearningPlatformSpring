@@ -246,6 +246,7 @@
                                                         <Select id="languageSelector">
                                                             <option value="" disabled selected>Select a language
                                                             </option>
+                                                            <option value="customLanguage">Other (enter Langauge)</option>
                                                         </Select>
                                                         <button onclick="postLanguage()">Add</button>
                                                     </div>
@@ -256,7 +257,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <div id="videoInjector" class="section-header">
+                        </div>
         </section>
         <!-------------------------->
 
@@ -444,6 +446,7 @@
                 // get User name
                 let userName = document.createElement("h2");
                 userName.textContent = result.userName;
+                localStorage.setItem('userName', result.userName);
                 const elementUser = document.getElementById('userName')
                 elementUser.append(userName);
 
@@ -509,7 +512,7 @@
                     let selectorElement = document.getElementById("languageSelector");
                     const language = document.createElement("option");
                     language.innerText = (element.name);
-                    localStorage.setItem('langId',element.id);
+                    localStorage.setItem('langId', element.id);
                     language.setAttribute('id', element.name);
                     selectorElement.append(language);
                 });
@@ -527,21 +530,98 @@
 
                     ////Post language to current user
                     fetch('http://localhost:8080/tutor/assignlanguage?tutorId='
-                    .concat(userId).concat("&langid=").concat(langId), {
+                        .concat(userId).concat("&langid=").concat(langId), {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(langData),
                     })
-                        .then(response => response.json())
-                        .then()
                 }
                 else if (currentUserRole == "STUDENT") {
-
+                    fetch('localhost:8080/student/assignlanguage?studentId='
+                        .concat(userId).concat("&langid=").concat(langId), {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(langData),
+                    })
                 }
             }
         </script>
 
+        <script>
+            const userId = localStorage.getItem('userId');
+            const tutorFetchLink = "http://localhost:8080/tutor/getTutorVideos?tutorId=".concat(userId);
+            const tutorVideoLinkList = [];
+            const tutorVideoNameList = [];
+            const divClassname1 = document.getElementById("videoInjector");
+
+            const tutorName = localStorage.getItem('userName');
+
+            async function getLinks(tutorName) {
+                let response = await fetch(tutorFetchLink)
+                    .then((result) => result.json())
+                    .then((tutor) => tutor.tutorVideo);
+
+                response.forEach((element) => {
+                    tutorVideoLinkList.push(element.link);
+                });
+
+                return response;
+            }
+
+
+            async function fetchVideoNames(tutorName) {
+                console.log(tutorFetchLink);
+                let response = await fetch(tutorFetchLink)
+                    .then((result) => result.json())
+                    .then((tutor) => tutor.tutorVideo);
+
+                response.forEach((element) => {
+                    tutorVideoNameList.push(element.title);
+                });
+
+                return response;
+            }
+
+
+            async function buildCards(tutorName) {
+                await getLinks(tutorName);
+                await fetchVideoNames(tutorName);
+
+
+                for (let i = 0; i < tutorVideoLinkList.length; i++) {
+                    // Create card container
+                    const card = document.createElement("div");
+                    card.classList.add("video-card");
+
+                    // Create iframe for video
+                    const iframe = document.createElement("iframe");
+                    iframe.src = tutorVideoLinkList[i];
+                    iframe.width = "300";
+                    iframe.height = "200";
+                    iframe.allowFullscreen = true;
+                    iframe.classList.add("video-frame");
+
+                    // Create title
+                    const title = document.createElement("h3");
+                    title.textContent = tutorVideoNameList[i];
+                    title.setAttribute("class", "videoTitle");
+
+
+                    // Append iframe and title to card
+                    card.appendChild(iframe);
+                    card.appendChild(title);
+
+                    // Append card to main container
+                    divClassname1.appendChild(card);
+                }
+            }
+            
+
+            buildCards();
+        </script>
 
 </body>
