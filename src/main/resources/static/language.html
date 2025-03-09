@@ -276,6 +276,7 @@
     <script>
   window.onload = async function logOut() {
     if (localStorage.getItem('token') === null) {
+      window.location = "login.html";
     }
     else {
       await addLogout();
