@@ -1,9 +1,9 @@
 package com.badar.llp.Controllers;
 
 import com.badar.llp.DTOs.InquiryDTO;
-import com.badar.llp.DTOs.LanguageDTO;
 import com.badar.llp.Services.InquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,12 +11,13 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "inquiry")
 @CrossOrigin(origins = "*")
-public class inquiryController {
+public class InquiryController {
 
     @Autowired
     InquiryService inquiryService;
 
     @GetMapping(value = "getAll")
+    @PreAuthorize("hasRole('TUTOR')")
     public List<InquiryDTO> getAllInquiries(){
         return inquiryService.getAllInquiries();
     }
