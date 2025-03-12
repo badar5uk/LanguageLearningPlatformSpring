@@ -24,6 +24,14 @@ public class User extends BasicModel {
     @Column(nullable = false, unique = true)
     private String userName;
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public @NotBlank(message = "Email is mandatory") String getEmail() {
         return email;
     }

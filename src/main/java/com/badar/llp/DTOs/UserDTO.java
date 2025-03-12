@@ -1,7 +1,6 @@
 package com.badar.llp.DTOs;
 
 import com.badar.llp.Models.Role;
-import com.badar.llp.Models.Student;
 import com.badar.llp.Models.User;
 import com.badar.llp.Utils.HelperUtils;
 
@@ -15,6 +14,7 @@ public class UserDTO {
     private String password;
     private Role role;
     private String userName;
+
 
     public Integer getId() {
         return id;

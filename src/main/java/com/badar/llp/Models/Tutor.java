@@ -2,6 +2,7 @@ package com.badar.llp.Models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public class Tutor extends BasicModel{
     private List<Student> studentList;
     @OneToMany
     private List<Video> videoList;
+    @OneToOne
+    private User user;
 
     public List<Language> getLanguageList() {
         return languageList;
@@ -37,5 +40,13 @@ public class Tutor extends BasicModel{
 
     public void setVideoList(List<Video> videoList) {
         this.videoList = videoList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

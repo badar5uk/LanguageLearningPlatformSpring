@@ -1,14 +1,10 @@
 async function getresponse(){
     const textArea = document.getElementById("airesponse");
-    var selectorOpt = document.getElementById("languages");
-    var  selectorLang = selectorOpt.options[selectorOpt.selectedIndex].text;
     const inputText = document.getElementById("testinput").value;
     console.log(inputText);
 
-    if(selectorLang != 'language'){
 
-    let input = 'http://localhost:8080/api/v1/llm'.concat("/")
-    .concat('translate "').concat(inputText).concat('" to ').concat(selectorLang);
+    let input = 'http://localhost:8080/api/v1/llm/'.concat(inputText);
     console.log(input);
     let aiResponse = fetch(input).then(res => {
     var reader = res.body.getReader();
@@ -30,5 +26,4 @@ async function getresponse(){
   });
   }
  
-}
   getresponse();

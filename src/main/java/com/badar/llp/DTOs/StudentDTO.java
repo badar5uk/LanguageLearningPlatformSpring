@@ -1,17 +1,17 @@
 package com.badar.llp.DTOs;
 
-import com.badar.llp.Models.Language;
 import com.badar.llp.Models.Student;
+import com.badar.llp.Models.User;
 import com.badar.llp.Utils.HelperUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class StudentDTO {
     private Integer id;
     private String name;
     private List<LanguageDTO> languageList;
+    private UserDTO userDTO;
 
     public Integer getId() {
         return id;
@@ -37,11 +37,20 @@ public class StudentDTO {
         this.languageList = languageList;
     }
 
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
+    }
+
     public static StudentDTO convertToDTO(Student student) {
         StudentDTO dto = new StudentDTO();
         dto.setId(student.getId());
         dto.setName(student.getName());
         dto.setLanguageList(LanguageDTO.convertToDTO(student.getLanguageList()));
+        dto.setUserDTO(UserDTO.convertToDTO(student.getUser()));
         return dto;
     }
 
@@ -50,6 +59,7 @@ public class StudentDTO {
         student.setId(dto.getId());
         student.setName(dto.getName());
         student.setLanguageList(LanguageDTO.convertFromDTO(dto.getLanguageList()));
+        student.setUser(UserDTO.convertFromDTO(dto.getUserDTO()));
         return student;
     }
 

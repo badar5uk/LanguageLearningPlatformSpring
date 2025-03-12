@@ -1,6 +1,5 @@
 package com.badar.llp.Controllers;
 
-import com.badar.llp.DTOs.LanguageDTO;
 import com.badar.llp.DTOs.StudentDTO;
 import com.badar.llp.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class StudentController {
         return studentService.deleteStudentById(id, studentDTO);
     }
 
-    @PutMapping(value = "assignlanguage/{langid}")
+    @PutMapping(value = "assignlanguage")
     public StudentDTO assignLanguageToStudent(@RequestParam Integer studentId, @RequestParam Integer langid){
         return studentService.assignLanguageToStudent(studentId, langid);
     }

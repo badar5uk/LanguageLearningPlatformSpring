@@ -23,7 +23,7 @@ public class JwtService {
       return Jwts.builder().addClaims(map).setSubject(dto.getUserName())
               .setIssuer("LLP")
               .setIssuedAt(new Date(System.currentTimeMillis()))
-              .setExpiration(new Date(System.currentTimeMillis() + 60*10*1000))
+              .setExpiration(new Date(System.currentTimeMillis() + 60*100*1000))
               .signWith(SignatureAlgorithm.HS256, getSecretKey()).compact();
    }
 

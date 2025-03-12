@@ -1,4 +1,4 @@
-var langName = "";
+// var langName = "";
 const fetchLink = "http://localhost:8080/language/"
 const videoLinkList = [];
 const videoNameList = [];
@@ -21,7 +21,7 @@ async function setLanguageName(fetchedLang) {
 async function getLangId(langName) {
     let id = -1;
     let response = await fetch("http://localhost:8080/language/getAll", {'Authorization': 'Bearer '.concat(localStorage.getItem('token'))})
-        .then((result) => result.json())
+        .then((result) => result.json());
     response.forEach((element) => {
         if (langName === element.name) {
             id = element.id;
@@ -33,7 +33,6 @@ async function getLangId(langName) {
 async function getLinks(langName) {
     const fetchedId = await getLangId(langName);
     let actualLink = fetchLink.concat(fetchedId);
-    console.log(actualLink);
     let response = await fetch(actualLink)
         .then((result) => result.json())
         .then((language) => language.videoDTOList);

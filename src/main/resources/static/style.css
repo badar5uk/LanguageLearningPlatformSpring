@@ -116,12 +116,12 @@ body {
   --bs-btn-bg: #EEF5E4;
   --bs-btn-border-color: #EEF5E4;
   --bs-btn-hover-color: #222;
-  --bs-btn-hover-bg: #9de3c2;
-  --bs-btn-hover-border-color: #9de3c2;
+  --bs-btn-hover-bg: #6db593;
+  --bs-btn-hover-border-color: #6db593;
   --bs-btn-focus-shadow-rgb: 60,153,110;
   --bs-btn-active-color: #222;
-  --bs-btn-active-bg: #9de3c2;
-  --bs-btn-active-border-color: #9de3c2;
+  --bs-btn-active-bg: #6db593;
+  --bs-btn-active-border-color: #6db593;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #222;
   --bs-btn-disabled-bg: #EEF5E4;
@@ -687,6 +687,87 @@ select.form-control {
 }
 .form-control:focus {
   box-shadow: none;
+}
+
+.custom-bg {
+  background-color: #6db593;
+  color: #ffffff; /* Adjust the text color if needed */
+}
+
+/* From Uiverse.io by Web-Potato */ 
+button {
+  padding: 0.1em 0.25em;
+  width: 13em;
+  height: 4.2em;
+  background-color: #6db593;
+  border: 0.08em solid #000000;
+  border-radius: 0.3em;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+button span {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0.4em;
+  width: 8.25em;
+  height: 2.5em;
+  background-color: #6db593;
+  border-radius: 0.2em;
+  font-size: 1.5em;
+  color: #000000;
+  border: 0.08em solid #000000;
+  box-shadow: 0 0.4em 0.1em 0.019em #000000;
+}
+
+button span:hover {
+  transition: all 0.5s;
+  transform: translate(0, 0.4em);
+  box-shadow: 0 0 0 0 #000000;
+}
+
+button span:not(hover) {
+  transition: all 1s;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /* ============ mobile view .end// ============ */
